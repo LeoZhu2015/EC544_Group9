@@ -34,14 +34,41 @@ http.listen(3000, function(){
 sp.on("open", function () {
   console.log('open');
   sp.on('data', function(data) {
-    console.log('data received: ' + data);
-    io.emit("chat message", "An XBee says: " + data);
-    if(data === "one"){
-      console.log("yyaaaaa");
+    
+    console.log(data);
+
+    if(/A/.test(data))
+    {
+    var reg_one = /[0-9]{2}/.exec(data);
+    console.log(reg_one[0]);
+    console.log("One says", reg_one[0]);
+    var a = parseInt(reg_one[0]) ;
+    console.log(a);
+    
     }
-    if(data === "two"){
-      console.log("nooo");
+      if(/B/.test(data))
+    {
+    var reg_two = /[0-9]{2}/.exec(data);
+    console.log(reg_two[0]);
+    console.log("Two says", reg_two[0]);
+    var b = parseInt(reg_two[0]);
+
+
     }
+      if(/C/.test(data))
+    {
+    var reg_three = /[0-9]{2}/.exec(data);
+    console.log(reg_three[0]);
+    console.log("Three says", reg_three[0]);
+    var c = parseInt(reg_three[0]) ;
+    }
+    
+    var avg = a+2 ;
+      console.log("The aVerage is = ", avg );
+
+
+
+    //io.emit("chat message", "An XBee says: " + data);
   });
 });
 
