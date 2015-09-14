@@ -33,17 +33,57 @@ http.listen(3000, function(){
 
 sp.on("open", function () {
   console.log('open');
-  var array = [];
-  var a = 0;
-  var b = 0;
-  var c = 0;
-  var count = 0;
-  sp.on('data', function(data) {
-    
-    console.log(data);
-
-
+  var array = [0,0,0,0];
   
+  var timeArray = [];
+  //var a = 0;
+  //var b = 0;
+  //var c = 0;
+  //var count = 0;
+  sp.on('data', function(data) {
+  var time = new Date();
+  timeArray.push(time.getTime());
+  //console.log(timeArray[0]);  
+  console.log(data);
+    //split the data and 
+  message = data.split(',');
+  //message.push(time.getTime());
+   console.log(message);
+  if(message[0]=='A'){
+    array[0]= parseInt(message[1]);
+    console.log(array[0]);
+  }
+  if(message[0]=='B'){
+    array[1] = parseInt(message[1]);
+  }
+  if(message[0]=='C'){
+    array[2] = parseInt(message[1]);
+  }
+  if(message[0]=='D'){
+    array[3] = parseInt(message[1]);
+  }
+  console.log(time.getTime()-timeArray[0]);
+
+  if((time.getTime()-timeArray[0]) >= 10000){
+    var num = 0;
+    var result = 0;
+    for(var i = 0; i < array.length; i++){
+      if(array[i]!=0){
+        result += array[i];
+        num++;
+      }
+    }
+    var average = (result/num).toFixed(2);
+    array=[0,0,0,0];
+    timeArray = [];
+    console.log("I got data from " + num + " sensors, and the average temperature is "+ average +"*C");
+    var myString =  "I got data from " + num + " sensors, and the average temperature is "+ average +"*C"
+    var timeString = "The time now is " + time.toLocaleTimeString()
+    io.emit("chat message", myString );
+    io.emit("chat message", timeString);
+  }
+
+/*  
     if(/A/.test(data))
     {
         var reg_one = /[0-9]{2}/.exec(data);
@@ -114,11 +154,12 @@ sp.on("open", function () {
           console.log("average is :" ,average);
           array = [];
     }
-    
+*/    
 
 
 
-    //io.emit("chat message", "An XBee says: " + data);
+   
   });
+
 });
 
