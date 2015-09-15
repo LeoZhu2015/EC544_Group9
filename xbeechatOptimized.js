@@ -77,8 +77,10 @@ var io = require('socket.io')(http);
 
    }
 
-  console.log(time.getTime()-TimeArray[0]);
-   if((time.getTime()-TimeArray[0]) >= 9000){
+  //console.log(time.getTime()-TimeArray[0]);
+  // if((time.getTime()-TimeArray[0]) >= 9000)
+  var timeDifference = TimeArray[TimeArray.length-1]-TimeArray[0];
+  if(TempArray.length==4 || timeDifference >= 9000){
      var num = 0;
      var result = 0;
      for(var i = 0; i < TempArray.length; i++){
