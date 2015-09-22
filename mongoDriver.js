@@ -12,17 +12,18 @@ MongoClient.connect(url, function(err, db) {
 });
 
 var insertDocument = function(db, callback) {
-   db.collection('sensor').insertOne( {
+   db.collection('sensor').insertOne({
      "sensor_name" : "A",
       "location":{
       	"x":"1",
       	"y":"2",
-      }
+      },
       "temperature" : "23",
-      "unit":"*C"
+      "unit":"C"
    }, function(err, result) {
     assert.equal(err, null);
     console.log("Inserted a document into the restaurants collection.");
     callback(result);
   });
 };
+
