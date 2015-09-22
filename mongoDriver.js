@@ -26,5 +26,3 @@ var insertDocument = function(db, callback) {
     callback(result);
   });
 };
-
-sensor_name,location, temperature, unit, time
