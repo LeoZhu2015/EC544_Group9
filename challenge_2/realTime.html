@@ -101,15 +101,15 @@
         });
  //-------------Historical Graph ---------------------------------------------//
 
- // var socket = io.connect();
- //
- // $( "#button" ).click(function() {
- //  //  alert( "Handler for .click() called." );
- //  var string = "I Work"
- //   socket.emit("buttonPress",string);
- // });
- //
- //
+ var socket = io();
+
+ $( "#button" ).click(function() {
+  //  alert( "Handler for .click() called." );
+  var string = "Historical Data"
+   socket.emit("buttonPress",string);
+ });
+
+
 
 
 
@@ -144,19 +144,19 @@
  var socket = io.connect();
 
 
- socket.on("A", function(data) {
- lineA.append(new Date().getTime(),data);
+ socket.on("A_history", function(time,temp) {
+ lineA.append(time,temp);
 });
 
- socket.on("B", function(data) {
+ socket.on("B_history", function(data) {
  lineB.append(new Date().getTime(),data);
  });
 
- socket.on("C", function(data) {
+ socket.on("C_history", function(data) {
  lineC.append(new Date().getTime(),data);
  });
 
- socket.on("D", function(data) {
+ socket.on("D_history", function(data) {
  lineD.append(new Date().getTime(),data);
  });
 
