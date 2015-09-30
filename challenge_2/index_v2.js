@@ -98,15 +98,13 @@ socket.on("buttonPress", function(string){
       assert.equal(err, null);
       if (doc != null) {
       	 //console.log(doc.temperature);
-      	 array.push(doc.temperature);
+      	 array.push( doc.temperature+"\n");
       	 // console.log(doc.time);
          // io.emit("A1",doc.time);
 
       } else {
       	 console.log(array);
-      	 element = array[0];
-      	 console.log(element);
-      	 socket.emit('A1',element);
+      	 socket.emit('A1',array);
          callback();
       }
    });
