@@ -1,5 +1,6 @@
 var SerialPort = require("serialport");
-var app = require('express')();
+var express = require('express');
+var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
@@ -17,8 +18,19 @@ var sp;
 
 sp = new SerialPort.SerialPort(portName, portConfig);
 
+app.use(express.static(__dirname + '/public/css'));
+app.use(express.static(__dirname + '/public'));
+
 app.get('/rt', function(req, res){
   res.sendfile('realTime.html');
+});
+
+app.get('/historical', function(req, res){
+  res.sendfile('historical.html');
+});
+
+app.get('/index', function(req, res){
+  res.sendfile('newindex.html');
 });
 
 app.get('/', function(req,res){
