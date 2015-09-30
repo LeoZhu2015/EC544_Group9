@@ -11,6 +11,9 @@ MongoClient.connect(url, function(err, db) {
   });
 });
 
+var d = new Date()
+var timestamp = d.toLocaleString()
+
 var sensor_data = {
      "sensor_name" : 'A',
       "location":{
@@ -18,13 +21,16 @@ var sensor_data = {
         "y":"3",
       },
       "temperature" : "23",
+      "timestamp":timestamp,
       "unit":"C"
    }
+
 
 var insertDocument = function(db, callback) {
    db.collection('sensor').insertOne(sensor_data, function(err, result) {
     assert.equal(err, null);
     console.log("Inserted a document into the restaurants collection.");
+    console.log(sensor_data)
     callback(result);
   });
 };

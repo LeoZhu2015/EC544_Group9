@@ -75,7 +75,7 @@
 
 
 
-        smoothie.streamTo(document.getElementById("mycanvas"), 1000 /*delay*/);
+        smoothie.streamTo(document.getElementById("mycanvas"), 0 /*delay*/);
 
 
         var socket = io.connect();
@@ -102,13 +102,20 @@
         });
  //-------------Historical Graph ---------------------------------------------//
 
+<<<<<<< HEAD
  var socket = io()
 
+=======
+ var socket = io();
+>>>>>>> e0015db9339b084102ff12383f2f45d97ac5ebd9
 
  $( "#button" ).click(function() {
   //  alert( "Handler for .click() called." );
   var string = "Historical Data"
+<<<<<<< HEAD
  
+=======
+>>>>>>> e0015db9339b084102ff12383f2f45d97ac5ebd9
    socket.emit("buttonPress",string);
  });
 
@@ -116,9 +123,13 @@
 
 
 
+<<<<<<< HEAD
 
 
  var smoothieNew = new SmoothieChart( {
+=======
+ var smoothie = new SmoothieChart( {
+>>>>>>> e0015db9339b084102ff12383f2f45d97ac5ebd9
  grid: { strokeStyle:'rgb(125, 0, 0)', fillStyle:'rgb(60, 0, 0)',
  lineWidth: 1, millisPerLine: 2000, verticalSections: 6, },
  minValue:-10,
@@ -131,6 +142,7 @@
  });
 
 
+<<<<<<< HEAD
  var lineA1 = new TimeSeries();
  var lineB1 = new TimeSeries();
  var lineC1 = new TimeSeries();
@@ -168,6 +180,40 @@ console.log("print");
 
  socket.on("D1", function(data) {
  lineD1.append(doc.time,doc.temperature);
+=======
+ var lineA = new TimeSeries();
+ var lineB = new TimeSeries();
+ var lineC = new TimeSeries();
+ var lineD = new TimeSeries();
+
+ smoothie.addTimeSeries(lineA, { strokeStyle:'rgb(0 , 255 , 0)', fillStyle:'rgba(0, 255, 0, 0.1)', lineWidth:3 });
+ smoothie.addTimeSeries(lineB, { strokeStyle:'rgb(0 ,0 , 255)', fillStyle:'rgba(0, 0, 255, 0.1)', lineWidth:3 });
+ smoothie.addTimeSeries(lineC, { strokeStyle:'rgb(0 ,100 , 150)', fillStyle:'rgba(0, 0, 255, 0.1)', lineWidth:3 });
+ smoothie.addTimeSeries(lineD, { strokeStyle:'rgb(0 ,0 , 0)', fillStyle:'rgba(0, 0, 255, 0.1)', lineWidth:3 });
+
+
+
+ smoothie.streamTo(document.getElementById("history"), 1000 /*delay*/);
+
+
+ var socket = io.connect();
+
+
+ socket.on("A_history", function(time,temp) {
+ lineA.append(time,temp);
+});
+
+ socket.on("B_history", function(data) {
+ lineB.append(new Date().getTime(),data);
+ });
+
+ socket.on("C_history", function(data) {
+ lineC.append(new Date().getTime(),data);
+ });
+
+ socket.on("D_history", function(data) {
+ lineD.append(new Date().getTime(),data);
+>>>>>>> e0015db9339b084102ff12383f2f45d97ac5ebd9
  });
 
 
