@@ -29,12 +29,17 @@
     <link href="font-awesome.min.css" rel="stylesheet" type="text/css">
 
    <script src= "https://cdnjs.cloudflare.com/ajax/libs/smoothie/1.27.0/smoothie.min.js"></script>
+       <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+           <script src="jquery.min.js"></script>
     <script src="http://smoothiecharts.org/smoothie.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="smoothie.js"></script>
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dygraph/1.1.1/dygraph-combined-dev.js"></script>
+    <script src="main.js"></script>
+
+
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -90,13 +95,13 @@
                                     <a id="sensorA">Sensor A</a>
                                 </li>
                                 <li>
-                                    <a href="/historical" id="sensorB">Sensor B</a>
+                                    <a  id="sensorB">Sensor B</a>
                                 </li>
                                 <li>
-                                    <a href="/historical" id="sensorC">Sensor C</a>
+                                    <a  id="sensorC">Sensor C</a>
                                 </li>
                                 <li>
-                                    <a href="/historical" id="sensorD">Sensor D</a>
+                                    <a   id="sensorD">Sensor D</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -235,7 +240,7 @@
                            <!-- <div id="morris-area-chart"></div>-->
                            <canvas id="mycanvas" width="500" height="400"></canvas>
                             <div id="dy">
-                          <div id="graphdiv"></div>
+                         <!-- <div id="graphdiv"></div>-->
                               </div>
                         </div>
                         <!-- /.panel-body -->
@@ -254,10 +259,9 @@
     <!-- /#wrapper -->
 
     <!-- jQuery -->
-    <script src="jquery.min.js"></script>
+
 
   <script>
-    //var socket = io();
 
     var smoothie = new SmoothieChart( {
     grid: { strokeStyle:'rgb(125, 0, 0)', fillStyle:'rgb(60, 0, 0)',
@@ -277,10 +281,10 @@
     var lineC = new TimeSeries();
     var lineD = new TimeSeries();
 
-    smoothie.addTimeSeries(lineA, { strokeStyle:'rgb(0 , 255 , 0)', fillStyle:'rgba(0, 255, 0, 0.3)', lineWidth:3 });
-    smoothie.addTimeSeries(lineB, { strokeStyle:'rgb(0 ,0 , 255)', fillStyle:'rgba(0, 0, 255, 0.1)', lineWidth:3 });
-    smoothie.addTimeSeries(lineC, { strokeStyle:'rgb(0 ,100 , 150)', fillStyle:'rgba(0, 0, 255, 0.1)', lineWidth:3 });
-    smoothie.addTimeSeries(lineD, { strokeStyle:'rgb(0 ,0 , 0)', fillStyle:'rgba(0, 0, 255, 0.1)', lineWidth:3 });
+    smoothie.addTimeSeries(lineA, { strokeStyle:'rgb(51, 122, 183)', fillStyle:'rgba(0, 0, 0, 0.1)', lineWidth:3 });
+    smoothie.addTimeSeries(lineB, { strokeStyle:'rgb(92, 184, 92)', fillStyle:'rgba(0, 0, 0, 0.1)', lineWidth:3 });
+    smoothie.addTimeSeries(lineC, { strokeStyle:'rgb(240, 173, 78)', fillStyle:'rgba(0, 0, 0, 0.1)', lineWidth:3 });
+    smoothie.addTimeSeries(lineD, { strokeStyle:'rgb(217, 83, 79)', fillStyle:'rgba(0, 0, 0, 0.1)', lineWidth:3 });
 
 
 
@@ -291,25 +295,21 @@
 
 
     socket.on("A", function(data) {
-    console.log('this is A');
     lineA.append(new Date().getTime(),data);
     $(document.getElementById('val_one')).text(data);
     });
 
     socket.on("B", function(data) {
-    console.log('this is A');
     lineB.append(new Date().getTime(),data);
     $(document.getElementById('val_two')).text(data);
     });
 
     socket.on("C", function(data) {
-    console.log('this is A');
     lineC.append(new Date().getTime(),data);
     $(document.getElementById('val_three')).text(data);
     });
 
     socket.on("D", function(data) {
-        console.log('this is A');
     lineD.append(new Date().getTime(),data);
     $(document.getElementById('val_four')).text(data);
     });
@@ -322,6 +322,45 @@
     var string = starttime+","+endtime+","+"A";
     socket.emit("buttonPress",string);
     console.log("haha");
+    $("#dy").find('div:contains(someText)').remove();
+    var tag  = '<div id="graphdiv"></div>'
+    $("#dy").append(tag);
+    $("#mycanvas").hide();
+    });
+    $("#sensorB").click(function(){
+    var starttime = $("#starttime").val();
+    var endtime = $("#endtime").val();
+    var string = starttime+","+endtime+","+"B";
+    socket.emit("buttonPress",string);
+    console.log("haha");
+    $("#dy").find('div:contains(someText)').remove();
+    var tag  = '<div id="graphdiv"></div>'
+    $("#dy").append(tag);
+    $("#mycanvas").hide();
+    });
+    $("#sensorC").click(function(){
+    var starttime = $("#starttime").val();
+    var endtime = $("#endtime").val();
+    var string = starttime+","+endtime+","+"C";
+    socket.emit("buttonPress",string);
+    console.log("haha");
+    $("#dy").find('div:contains(someText)').remove();
+    var tag  = '<div id="graphdiv"></div>'
+    $("#dy").append(tag);
+    $("#mycanvas").hide();
+    });
+    $("#sensorD").click(function(){
+    var starttime = $("#starttime").val();
+    var endtime = $("#endtime").val();
+    var string = "D";
+    string.append(","+starttime);
+    string.append(","+endtime);
+    socket.emit("buttonPress",string);
+    console.log("string");
+    $("#dy").find('div:contains(someText)').remove();
+    var tag  = '<div id="graphdiv"></div>'
+    $("#dy").append(tag);
+    $("#mycanvas").hide();
     });
     socket.on("A1", function(newString) {
 /*  console.log(newString);
@@ -338,7 +377,7 @@ var g = new Dygraph(document.getElementById("graphdiv"),
     labels: [ "Time", "Sensor-A" ]
 
   }); 
-});
+}); 
         </script>
 </body>
 
