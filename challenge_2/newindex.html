@@ -62,7 +62,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">SB Admin v2.0</a>
+                <a class="navbar-brand">Group 9</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -83,7 +83,7 @@
                             <!-- /input-group -->
                         </li>
                         <li>
-                            <a href="/index"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                            <a href="/index"><i class="fa fa-dashboard fa-fw"></i>Real-Time</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Historical<span class="fa arrow"></span><br></a>
@@ -214,7 +214,7 @@
                 <div class="col-lg-8">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <i class="fa fa-bar-chart-o fa-fw"></i> Area Chart Example
+                            <i class="fa fa-bar-chart-o fa-fw"></i><a id="chart-name">Real Time Chart</a>
                             <div class="pull-right">
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
@@ -321,9 +321,9 @@
         var endtime = $("#endtime").val();
     var string1 = "A";
     var string2 = ",";
+    $("#chart-name").text("Sensor A Historical Data Chart");
     string= string1.concat(string2,starttime,string2,endtime);
     socket.emit("buttonPress",string);
-    console.log("haha");
     $("#dy").find('div:contains(someText)').remove();
     var tag  = '<div id="graphdiv"></div>'
     $("#dy").append(tag);
@@ -336,8 +336,8 @@
     var string1 = "B";
     var string2 = ",";
     string= string1.concat(string2,starttime,string2,endtime);
+    $("#chart-name").text("Sensor B Historical Data Chart");
     socket.emit("buttonPress",string);
-    console.log("haha");
     $("#dy").find('div:contains(someText)').remove();
     var tag  = '<div id="graphdiv"></div>'
     $("#dy").append(tag);
@@ -351,7 +351,7 @@
     var string2 = ",";
     string= string1.concat(string2,starttime,string2,endtime);
     socket.emit("buttonPress",string);
-    console.log("haha");
+    $("#chart-name").text("Sensor C Historical Data Chart");
     $("#dy").find('div:contains(someText)').remove();
     var tag  = '<div id="graphdiv"></div>'
     $("#dy").append(tag);
@@ -364,7 +364,7 @@
     var string1 = "D";
     var string2 = ",";
     string= string1.concat(string2,starttime,string2,endtime);
-
+$("#chart-name").text("Sensor D Historical Data Chart");
     //string.append(","+starttime);
     //string.append(","+endtime);
     socket.emit("buttonPress",string);
