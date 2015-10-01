@@ -22,7 +22,7 @@ app.use(express.static(__dirname + '/public/css'));
 app.use(express.static(__dirname + '/public'));
 
 app.get('/rt', function(req, res){
-  res.sendfile('realTime.html');
+  res.sendfile('realTime_v3.html');
 });
 
 app.get('/historical', function(req, res){
@@ -102,9 +102,10 @@ io.on("connection",function(socket){
 			console.log("gfdkhfgakg");
 socket.on("buttonPress", function(string){ 
    var str=null;
+   console.log(string)
    var findDocuments = function(db, callback) {
    
-   var cursor =db.collection('sensor').find({"time":{$gt:1443560762944, $lt:1443560774972}});
+   var cursor =db.collection('sensor').find();
    //console.log("temperature'"+doc.temperature);
    cursor.each(function(err, doc) {
       assert.equal(err, null);

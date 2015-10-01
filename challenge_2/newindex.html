@@ -34,6 +34,7 @@
     <script src="smoothie.js"></script>
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dygraph/1.1.1/dygraph-combined-dev.js"></script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -81,21 +82,21 @@
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Historical<span class="fa arrow"></span><br></a>
-                            <a><i class="fa fa-bar-chart-o fa-fw"></i>Start Time: <br><input type="text" class="form-control" placeholder="Format:yy/mm/dd/hh"><br></a>
-                            <a><i class="fa fa-bar-chart-o fa-fw"></i>End Time: <br><input type="text" class="form-control" placeholder="Format:yy/mm/dd/hh"><br></a>
+                            <a><i class="fa fa-bar-chart-o fa-fw"></i>Start Time: <br><input type="text" id="starttime" class="form-control" placeholder="Format:yy/mm/dd/hh"><br></a>
+                            <a><i class="fa fa-bar-chart-o fa-fw"></i>End Time: <br><input type="text" id="endtime" class="form-control" placeholder="Format:yy/mm/dd/hh"><br></a>
 
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="/historical">Sensor A</a>
+                                    <a id="sensorA">Sensor A</a>
                                 </li>
                                 <li>
-                                    <a href="/historical">Sensor B</a>
+                                    <a href="/historical" id="sensorB">Sensor B</a>
                                 </li>
                                 <li>
-                                    <a href="/historical">Sensor C</a>
+                                    <a href="/historical" id="sensorC">Sensor C</a>
                                 </li>
                                 <li>
-                                    <a href="/historical">Sensor D</a>
+                                    <a href="/historical" id="sensorD">Sensor D</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -233,6 +234,9 @@
                         <div class="panel-body">
                            <!-- <div id="morris-area-chart"></div>-->
                            <canvas id="mycanvas" width="500" height="400"></canvas>
+                            <div id="dy">
+                          <div id="graphdiv"></div>
+                              </div>
                         </div>
                         <!-- /.panel-body -->
                     </div>
@@ -250,78 +254,91 @@
     <!-- /#wrapper -->
 
     <!-- jQuery -->
-    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="jquery.min.js"></script>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="../bower_components/metisMenu/dist/metisMenu.min.js"></script>
-
-    <!-- Morris Charts JavaScript -->
-    <script src="../bower_components/raphael/raphael-min.js"></script>
-    <script src="../bower_components/morrisjs/morris.min.js"></script>
-    <script src="../js/morris-data.js"></script>
-
-    <!-- Custom Theme JavaScript -->
-    <script src="../dist/js/sb-admin-2.js"></script>
   <script>
-        var socket = io();
+    //var socket = io();
 
-        var smoothie = new SmoothieChart( {
-        grid: { strokeStyle:'rgb(125, 0, 0)', fillStyle:'rgb(60, 0, 0)',
-        lineWidth: 1, millisPerLine: 2000, verticalSections: 6, },
-        minValue:-10,
-        maxValue:50,
-        interpolation:"step",
-        labels: { fillStyle:'rgb(255, 255, 255)' },
-        sharpLines:true,
-        labels:{fontSize:15},
-        timestampFormatter:SmoothieChart.timeFormatter
-        });
-
-
-        var lineA = new TimeSeries();
-        var lineB = new TimeSeries();
-        var lineC = new TimeSeries();
-        var lineD = new TimeSeries();
-
-        smoothie.addTimeSeries(lineA, { strokeStyle:'rgb(0 , 255 , 0)', fillStyle:'rgba(0, 255, 0, 0.3)', lineWidth:3 });
-        smoothie.addTimeSeries(lineB, { strokeStyle:'rgb(0 ,0 , 255)', fillStyle:'rgba(0, 0, 255, 0.1)', lineWidth:3 });
-        smoothie.addTimeSeries(lineC, { strokeStyle:'rgb(0 ,100 , 150)', fillStyle:'rgba(0, 0, 255, 0.1)', lineWidth:3 });
-        smoothie.addTimeSeries(lineD, { strokeStyle:'rgb(0 ,0 , 0)', fillStyle:'rgba(0, 0, 255, 0.1)', lineWidth:3 });
+    var smoothie = new SmoothieChart( {
+    grid: { strokeStyle:'rgb(125, 0, 0)', fillStyle:'rgb(60, 0, 0)',
+    lineWidth: 1, millisPerLine: 2000, verticalSections: 6, },
+    minValue:-10,
+    maxValue:50,
+    interpolation:"step",
+    labels: { fillStyle:'rgb(255, 255, 255)' },
+    sharpLines:true,
+    labels:{fontSize:15},
+    timestampFormatter:SmoothieChart.timeFormatter
+    });
 
 
+    var lineA = new TimeSeries();
+    var lineB = new TimeSeries();
+    var lineC = new TimeSeries();
+    var lineD = new TimeSeries();
 
-        smoothie.streamTo(document.getElementById("mycanvas"), 1000);
+    smoothie.addTimeSeries(lineA, { strokeStyle:'rgb(0 , 255 , 0)', fillStyle:'rgba(0, 255, 0, 0.3)', lineWidth:3 });
+    smoothie.addTimeSeries(lineB, { strokeStyle:'rgb(0 ,0 , 255)', fillStyle:'rgba(0, 0, 255, 0.1)', lineWidth:3 });
+    smoothie.addTimeSeries(lineC, { strokeStyle:'rgb(0 ,100 , 150)', fillStyle:'rgba(0, 0, 255, 0.1)', lineWidth:3 });
+    smoothie.addTimeSeries(lineD, { strokeStyle:'rgb(0 ,0 , 0)', fillStyle:'rgba(0, 0, 255, 0.1)', lineWidth:3 });
 
 
-        var socket = io.connect();
+
+    smoothie.streamTo(document.getElementById("mycanvas"), 1000);
 
 
-        socket.on("A", function(data) {
+    var socket = io.connect();
+
+
+    socket.on("A", function(data) {
+    console.log('this is A');
+    lineA.append(new Date().getTime(),data);
+    $(document.getElementById('val_one')).text(data);
+    });
+
+    socket.on("B", function(data) {
+    console.log('this is A');
+    lineB.append(new Date().getTime(),data);
+    $(document.getElementById('val_two')).text(data);
+    });
+
+    socket.on("C", function(data) {
+    console.log('this is A');
+    lineC.append(new Date().getTime(),data);
+    $(document.getElementById('val_three')).text(data);
+    });
+
+    socket.on("D", function(data) {
         console.log('this is A');
-        lineA.append(new Date().getTime(),data);
-        $(document.getElementById('val_one')).text(data);
-        });
+    lineD.append(new Date().getTime(),data);
+    $(document.getElementById('val_four')).text(data);
+    });
 
-        socket.on("B", function(data) {
-        console.log('this is A');
-        lineB.append(new Date().getTime(),data);
-        $(document.getElementById('val_two')).text(data);
-        });
 
-        socket.on("C", function(data) {
-        console.log('this is A');
-        lineC.append(new Date().getTime(),data);
-        $(document.getElementById('val_three')).text(data);
-        });
 
-        socket.on("D", function(data) {
-            console.log('this is A');
-        lineD.append(new Date().getTime(),data);
-        $(document.getElementById('val_four')).text(data);
-        });
+    $("#sensorA").click(function(){
+        var starttime = $("#starttime").val();
+        var endtime = $("#endtime").val();
+    var string = starttime+","+endtime+","+"A";
+    socket.emit("buttonPress",string);
+    console.log("haha");
+    });
+    socket.on("A1", function(newString) {
+/*  console.log(newString);
+  var dataArray = newString.split(',');
+  // var max = dataArray.length()
+  for(var i = 0; i < 3 ; i++){
+    console.log(dataArray[i]);
+  lineA1.append(new Date(endTime - i*500).getTime(),dataArray[i]);
+  };*/
+
+var g = new Dygraph(document.getElementById("graphdiv"),
+    newString,
+{
+    labels: [ "Time", "Sensor-A" ]
+
+  }); 
+});
         </script>
 </body>
 
