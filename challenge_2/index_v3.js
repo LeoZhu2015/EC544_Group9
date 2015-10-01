@@ -103,9 +103,34 @@ io.on("connection",function(socket){
 socket.on("buttonPress", function(string){ 
    var str=null;
    console.log(string)
+
    var findDocuments = function(db, callback) {
+   message = string.split(",");
+var date = new Date()
+console.log(date.toLocaleString());
+
+console.log(message[1]);
+
+  var  starttime = message[1].split("/");
+  var  endtime = message[2].split("/");
+    console.log(starttime[0])
+   //timestring = timearray[1] + ""starttime[2] + time 
+var startstring = "20" + starttime[0] + "-" + starttime[1] + "-" + starttime[2] + " " + starttime[3] + ":00:00";
+var endstring = "20" + endtime[0] + "-" + endtime[1] + "-" + endtime[2] + " " + endtime[3] + ":00:00";
+var timestamp1 = Date.parse(new Date(startstring));
+var timestamp2 = Date.parse(new Date(endstring));
+console.log(startstring);
+console.log(endstring);
+
+var query1 = '{\"sensor_name\":message[0]}';
+var query2 = '{\"sensor_name\":message[0],\"time\":{$gt:timestamp1,$lt:timestamp2}}'
+ if(message[1]!=""&& message[2]!=""){
+  var cursor = db.collection('sensor').find({"sensor_name":message[0],"time":{$gt:timestamp1,$lt:timestamp2}});
+ }
+ else{
+  var cursor =db.collection('sensor').find({"sensor_name":message[0]});
+ }
    
-   var cursor =db.collection('sensor').find();
    //console.log("temperature'"+doc.temperature);
    cursor.each(function(err, doc) {
       assert.equal(err, null);
@@ -116,7 +141,7 @@ socket.on("buttonPress", function(string){
          // io.emit("A1",doc.time);
 
       } else {
-      	 console.log(str);
+      	 //console.log(str);
       	 socket.emit('A1',str);
          callback();
       }

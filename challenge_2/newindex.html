@@ -95,13 +95,13 @@
                                     <a id="sensorA">Sensor A</a>
                                 </li>
                                 <li>
-                                    <a  id="sensorB">Sensor B</a>
+                                    <a id="sensorB">Sensor B</a>
                                 </li>
                                 <li>
-                                    <a  id="sensorC">Sensor C</a>
+                                    <a id="sensorC">Sensor C</a>
                                 </li>
                                 <li>
-                                    <a   id="sensorD">Sensor D</a>
+                                    <a id="sensorD">Sensor D</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -319,7 +319,9 @@
     $("#sensorA").click(function(){
         var starttime = $("#starttime").val();
         var endtime = $("#endtime").val();
-    var string = starttime+","+endtime+","+"A";
+    var string1 = "A";
+    var string2 = ",";
+    string= string1.concat(string2,starttime,string2,endtime);
     socket.emit("buttonPress",string);
     console.log("haha");
     $("#dy").find('div:contains(someText)').remove();
@@ -327,10 +329,13 @@
     $("#dy").append(tag);
     $("#mycanvas").hide();
     });
+
     $("#sensorB").click(function(){
     var starttime = $("#starttime").val();
     var endtime = $("#endtime").val();
-    var string = starttime+","+endtime+","+"B";
+    var string1 = "B";
+    var string2 = ",";
+    string= string1.concat(string2,starttime,string2,endtime);
     socket.emit("buttonPress",string);
     console.log("haha");
     $("#dy").find('div:contains(someText)').remove();
@@ -338,10 +343,13 @@
     $("#dy").append(tag);
     $("#mycanvas").hide();
     });
+
     $("#sensorC").click(function(){
     var starttime = $("#starttime").val();
     var endtime = $("#endtime").val();
-    var string = starttime+","+endtime+","+"C";
+    var string1 = "C";
+    var string2 = ",";
+    string= string1.concat(string2,starttime,string2,endtime);
     socket.emit("buttonPress",string);
     console.log("haha");
     $("#dy").find('div:contains(someText)').remove();
@@ -349,19 +357,23 @@
     $("#dy").append(tag);
     $("#mycanvas").hide();
     });
+
     $("#sensorD").click(function(){
     var starttime = $("#starttime").val();
     var endtime = $("#endtime").val();
-    var string = "D";
-    string.append(","+starttime);
-    string.append(","+endtime);
+    var string1 = "D";
+    var string2 = ",";
+    string= string1.concat(string2,starttime,string2,endtime);
+
+    //string.append(","+starttime);
+    //string.append(","+endtime);
     socket.emit("buttonPress",string);
-    console.log("string");
     $("#dy").find('div:contains(someText)').remove();
     var tag  = '<div id="graphdiv"></div>'
     $("#dy").append(tag);
     $("#mycanvas").hide();
     });
+
     socket.on("A1", function(newString) {
 /*  console.log(newString);
   var dataArray = newString.split(',');
