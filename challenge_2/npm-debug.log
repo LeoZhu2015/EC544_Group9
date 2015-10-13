@@ -1,0 +1,282 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\nodejs\\\\node.exe',
+1 verbose cli   'C:\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   'serialport' ]
+2 info using npm@2.10.1
+3 info using node@v0.12.4
+4 verbose install initial load of C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2\package.json
+5 warn package.json socket-chat-example@0.0.1 No repository field.
+6 warn package.json socket-chat-example@0.0.1 No license field.
+7 verbose installManyTop reading scoped package data from C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2\node_modules\express\package.json
+8 verbose installManyTop reading scoped package data from C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2\node_modules\node_modules\package.json
+9 verbose installManyTop reading scoped package data from C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2\node_modules\serialport\package.json
+10 verbose installManyTop reading scoped package data from C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2\node_modules\socket.io\package.json
+11 info package.json serialport@1.7.4 No license field.
+12 info package.json socket.io@1.3.7 No license field.
+13 verbose readDependencies loading dependencies from C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2\package.json
+14 verbose install serialport is installed as 1.7.4
+15 silly cache add args [ 'serialport', null ]
+16 verbose cache add spec serialport
+17 silly cache add parsed spec { raw: 'serialport',
+17 silly cache add   scope: null,
+17 silly cache add   name: 'serialport',
+17 silly cache add   rawSpec: '',
+17 silly cache add   spec: '*',
+17 silly cache add   type: 'range' }
+18 silly addNamed serialport@*
+19 verbose addNamed "*" is a valid semver range for serialport
+20 silly addNameRange { name: 'serialport', range: '*', hasData: false }
+21 silly mapToRegistry name serialport
+22 silly mapToRegistry using default registry
+23 silly mapToRegistry registry https://registry.npmjs.org/
+24 silly mapToRegistry uri https://registry.npmjs.org/serialport
+25 verbose addNameRange registry:https://registry.npmjs.org/serialport not in flight; fetching
+26 verbose request uri https://registry.npmjs.org/serialport
+27 verbose request no auth needed
+28 info attempt registry request try #1 at 11:55:50
+29 verbose request id 9fdac9614e0d1f94
+30 verbose etag "5V2U0RGXCHQN4L4TV9EX2RG19"
+31 http request GET https://registry.npmjs.org/serialport
+32 http 200 https://registry.npmjs.org/serialport
+33 silly get cb [ 200,
+33 silly get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+33 silly get     etag: '"QS9Y1IHHRBNFPDNPPKVT88JL"',
+33 silly get     'content-type': 'application/json',
+33 silly get     'cache-control': 'max-age=60',
+33 silly get     'content-length': '119737',
+33 silly get     'accept-ranges': 'bytes',
+33 silly get     date: 'Tue, 29 Sep 2015 15:55:59 GMT',
+33 silly get     via: '1.1 varnish',
+33 silly get     age: '0',
+33 silly get     connection: 'keep-alive',
+33 silly get     'x-served-by': 'cache-iad2127-IAD',
+33 silly get     'x-cache': 'HIT',
+33 silly get     'x-cache-hits': '1',
+33 silly get     'x-timer': 'S1443542159.520084,VS0,VE374',
+33 silly get     vary: 'Accept' } ]
+34 verbose get saving serialport to C:\Users\Liang\AppData\Roaming\npm-cache\registry.npmjs.org\serialport\.cache.json
+35 silly addNameRange number 2 { name: 'serialport', range: '*', hasData: true }
+36 silly addNameRange versions [ 'serialport',
+36 silly addNameRange   [ '0.1.0',
+36 silly addNameRange     '0.1.1',
+36 silly addNameRange     '0.1.3',
+36 silly addNameRange     '0.2.0',
+36 silly addNameRange     '0.2.2',
+36 silly addNameRange     '0.2.3',
+36 silly addNameRange     '0.2.4',
+36 silly addNameRange     '0.2.5',
+36 silly addNameRange     '0.2.6',
+36 silly addNameRange     '0.2.7',
+36 silly addNameRange     '0.2.8',
+36 silly addNameRange     '0.2.9',
+36 silly addNameRange     '0.3.0',
+36 silly addNameRange     '0.6.0',
+36 silly addNameRange     '0.6.1',
+36 silly addNameRange     '0.6.2',
+36 silly addNameRange     '0.6.3',
+36 silly addNameRange     '0.6.5',
+36 silly addNameRange     '0.6.6',
+36 silly addNameRange     '0.6.7',
+36 silly addNameRange     '0.7.0',
+36 silly addNameRange     '0.7.1',
+36 silly addNameRange     '0.7.2',
+36 silly addNameRange     '0.7.3',
+36 silly addNameRange     '0.7.4',
+36 silly addNameRange     '0.7.5',
+36 silly addNameRange     '1.0.0',
+36 silly addNameRange     '1.0.1',
+36 silly addNameRange     '1.0.2',
+36 silly addNameRange     '1.0.3',
+36 silly addNameRange     '1.0.4',
+36 silly addNameRange     '1.0.5',
+36 silly addNameRange     '1.0.6',
+36 silly addNameRange     '1.0.7',
+36 silly addNameRange     '1.0.8',
+36 silly addNameRange     '1.1.0',
+36 silly addNameRange     '1.1.1',
+36 silly addNameRange     '1.1.3',
+36 silly addNameRange     '1.2.0',
+36 silly addNameRange     '1.2.1',
+36 silly addNameRange     '1.2.2',
+36 silly addNameRange     '1.2.3',
+36 silly addNameRange     '1.2.4',
+36 silly addNameRange     '1.2.5',
+36 silly addNameRange     '1.3.0',
+36 silly addNameRange     '1.3.1',
+36 silly addNameRange     '1.4.0',
+36 silly addNameRange     '1.4.1',
+36 silly addNameRange     '1.4.2',
+36 silly addNameRange     '1.4.5',
+36 silly addNameRange     '1.4.6',
+36 silly addNameRange     '1.4.8',
+36 silly addNameRange     '1.4.9',
+36 silly addNameRange     '1.4.10',
+36 silly addNameRange     '1.5.0',
+36 silly addNameRange     '1.6.1',
+36 silly addNameRange     '1.6.2',
+36 silly addNameRange     '1.6.3',
+36 silly addNameRange     '1.7.0',
+36 silly addNameRange     '1.7.1',
+36 silly addNameRange     '1.7.3',
+36 silly addNameRange     '1.7.4' ] ]
+37 silly addNamed serialport@1.7.4
+38 verbose addNamed "1.7.4" is a plain semver version for serialport
+39 silly cache afterAdd serialport@1.7.4
+40 verbose afterAdd C:\Users\Liang\AppData\Roaming\npm-cache\serialport\1.7.4\package\package.json not in flight; writing
+41 verbose afterAdd C:\Users\Liang\AppData\Roaming\npm-cache\serialport\1.7.4\package\package.json written
+42 silly install resolved [ { name: 'serialport',
+42 silly install resolved     version: '1.7.4',
+42 silly install resolved     description: 'Welcome your robotic javascript overlords. Better yet, program them!',
+42 silly install resolved     author:
+42 silly install resolved      { name: 'Chris Williams',
+42 silly install resolved        email: 'voodootikigod@gmail.com',
+42 silly install resolved        url: 'http://www.voodootikigod.com' },
+42 silly install resolved     binary:
+42 silly install resolved      { module_name: 'serialport',
+42 silly install resolved        module_path: './build/{module_name}/v{version}/{configuration}/{node_abi}-{platform}-{arch}/',
+42 silly install resolved        remote_path: './{module_name}/v{version}/{configuration}/',
+42 silly install resolved        package_name: '{node_abi}-{platform}-{arch}.tar.gz',
+42 silly install resolved        host: 'https://node-serialport.s3.amazonaws.com' },
+42 silly install resolved     main: './serialport',
+42 silly install resolved     repository:
+42 silly install resolved      { type: 'git',
+42 silly install resolved        url: 'git://github.com/voodootikigod/node-serialport.git' },
+42 silly install resolved     maintainers: [ [Object] ],
+42 silly install resolved     dependencies:
+42 silly install resolved      { async: '0.9.0',
+42 silly install resolved        bindings: '1.2.1',
+42 silly install resolved        debug: '^2.1.1',
+42 silly install resolved        nan: '~1.8.4',
+42 silly install resolved        'node-pre-gyp': '0.6.x',
+42 silly install resolved        optimist: '~0.6.1',
+42 silly install resolved        sf: '0.1.7' },
+42 silly install resolved     devDependencies:
+42 silly install resolved      { mocha: '*',
+42 silly install resolved        chai: '*',
+42 silly install resolved        'sinon-chai': '*',
+42 silly install resolved        sinon: '*',
+42 silly install resolved        grunt: '*',
+42 silly install resolved        'grunt-cli': '*',
+42 silly install resolved        'grunt-mocha-test': '*',
+42 silly install resolved        'grunt-contrib-jshint': '*',
+42 silly install resolved        'sandboxed-module': '~0.3.0' },
+42 silly install resolved     engines: { node: '>= 0.10.0' },
+42 silly install resolved     bin:
+42 silly install resolved      { serialportlist: './bin/serialportList.js',
+42 silly install resolved        serialportterm: './bin/serialportTerminal.js' },
+42 silly install resolved     scripts:
+42 silly install resolved      { install: 'node-pre-gyp install --fallback-to-build',
+42 silly install resolved        test: 'grunt --verbose' },
+42 silly install resolved     contributors:
+42 silly install resolved      [ [Object],
+42 silly install resolved        [Object],
+42 silly install resolved        [Object],
+42 silly install resolved        [Object],
+42 silly install resolved        [Object],
+42 silly install resolved        [Object],
+42 silly install resolved        [Object],
+42 silly install resolved        [Object],
+42 silly install resolved        [Object],
+42 silly install resolved        [Object],
+42 silly install resolved        [Object],
+42 silly install resolved        [Object],
+42 silly install resolved        [Object] ],
+42 silly install resolved     gitHead: '884b5f3da6fda69ebec4283f742221e1f5d47c61',
+42 silly install resolved     bugs: { url: 'https://github.com/voodootikigod/node-serialport/issues' },
+42 silly install resolved     homepage: 'https://github.com/voodootikigod/node-serialport',
+42 silly install resolved     bundleDependencies: [ 'node-pre-gyp' ],
+42 silly install resolved     _id: 'serialport@1.7.4',
+42 silly install resolved     _shasum: '5414f9812795f10d84c45620d19402efec5ba0f1',
+42 silly install resolved     _from: 'serialport@*',
+42 silly install resolved     _npmVersion: '1.4.28',
+42 silly install resolved     _npmUser: { name: 'voodootikigod', email: 'voodootikigod@gmail.com' },
+42 silly install resolved     dist:
+42 silly install resolved      { shasum: '5414f9812795f10d84c45620d19402efec5ba0f1',
+42 silly install resolved        tarball: 'http://registry.npmjs.org/serialport/-/serialport-1.7.4.tgz' },
+42 silly install resolved     directories: {},
+42 silly install resolved     _resolved: 'https://registry.npmjs.org/serialport/-/serialport-1.7.4.tgz',
+42 silly install resolved     readme: 'ERROR: No README data found!' } ]
+43 info install serialport@1.7.4 into C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2
+44 info installOne serialport@1.7.4
+45 verbose installOne of serialport to C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2 not in flight; installing
+46 verbose lock using C:\Users\Liang\AppData\Roaming\npm-cache\_locks\serialport-f512e53572b22f0e.lock for C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2\node_modules\serialport
+47 silly install write writing serialport 1.7.4 to C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2\node_modules\serialport
+48 verbose unbuild node_modules\serialport
+49 info preuninstall serialport@1.7.4
+50 info uninstall serialport@1.7.4
+51 verbose unbuild rmStuff serialport@1.7.4 from C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2\node_modules
+52 silly gentlyRm C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2\node_modules\.bin\serialportlist.cmd is being gently removed
+53 silly gentlyRm verifying C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2 is an npm working directory
+54 silly gentlyRm C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2\node_modules\.bin\serialportterm.cmd is being gently removed
+55 silly gentlyRm verifying C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2 is an npm working directory
+56 silly gentlyRm containing path C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2 is under npm's control, in C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2
+57 silly gentlyRm deletion target C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2\node_modules\.bin\serialportlist.cmd is under C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2
+58 verbose gentlyRm vacuuming from C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2\node_modules\.bin\serialportlist.cmd up to C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2
+59 silly gentlyRm containing path C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2 is under npm's control, in C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2
+60 silly gentlyRm deletion target C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2\node_modules\.bin\serialportterm.cmd is under C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2
+61 verbose gentlyRm vacuuming from C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2\node_modules\.bin\serialportterm.cmd up to C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2
+62 silly gentlyRm C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2\node_modules\.bin\serialportlist is being gently removed
+63 silly gentlyRm verifying C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2 is an npm working directory
+64 silly gentlyRm containing path C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2 is under npm's control, in C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2
+65 silly gentlyRm deletion target C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2\node_modules\.bin\serialportlist is under C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2
+66 verbose gentlyRm vacuuming from C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2\node_modules\.bin\serialportlist up to C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2
+67 silly gentlyRm C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2\node_modules\.bin\serialportterm is being gently removed
+68 silly gentlyRm verifying C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2 is an npm working directory
+69 silly gentlyRm containing path C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2 is under npm's control, in C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2
+70 silly gentlyRm deletion target C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2\node_modules\.bin\serialportterm is under C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2
+71 verbose gentlyRm vacuuming from C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2\node_modules\.bin\serialportterm up to C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2
+72 silly vacuum-fs removing C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2\node_modules\.bin\serialportlist
+73 silly vacuum-fs removing C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2\node_modules\.bin\serialportterm
+74 silly vacuum-fs removing C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2\node_modules\.bin
+75 silly vacuum-fs removing C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2\node_modules\.bin
+76 silly vacuum-fs unable to remove C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2\node_modules\.bin due to EPERM, rmdir 'C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2\node_modules\.bin'
+77 silly vacuum-fs quitting because other entries in C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2\node_modules
+78 verbose unlock done using C:\Users\Liang\AppData\Roaming\npm-cache\_locks\serialport-f512e53572b22f0e.lock for C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2\node_modules\serialport
+79 verbose stack Error: EPERM, rmdir 'C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2\node_modules\.bin'
+79 verbose stack     at Error (native)
+80 verbose cwd C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2
+81 error Windows_NT 6.3.9600
+82 error argv "C:\\nodejs\\\\node.exe" "C:\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "serialport"
+83 error node v0.12.4
+84 error npm  v2.10.1
+85 error path C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2\node_modules\.bin
+86 error code EPERM
+87 error errno -4048
+88 error Error: EPERM, rmdir 'C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2\node_modules\.bin'
+88 error     at Error (native)
+88 error  { [Error: EPERM, rmdir 'C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2\node_modules\.bin']
+88 error   errno: -4048,
+88 error   code: 'EPERM',
+88 error   path: 'C:\\Users\\Liang\\Documents\\GitHub\\EC544_Group9\\challenge_2\\node_modules\\.bin' }
+89 error Please try running this command again as root/Administrator.
+90 verbose exit [ -4048, true ]
+91 verbose unbuild node_modules\serialport
+92 info preuninstall serialport@1.7.4
+93 info uninstall serialport@1.7.4
+94 verbose unbuild rmStuff serialport@1.7.4 from C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2\node_modules
+95 silly gentlyRm C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2\node_modules\.bin\serialportlist.cmd is being gently removed
+96 silly gentlyRm verifying C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2 is an npm working directory
+97 silly gentlyRm C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2\node_modules\.bin\serialportterm.cmd is being gently removed
+98 silly gentlyRm verifying C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2 is an npm working directory
+99 silly gentlyRm containing path C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2 is under npm's control, in C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2
+100 silly gentlyRm deletion target C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2\node_modules\.bin\serialportlist.cmd is under C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2
+101 verbose gentlyRm vacuuming from C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2\node_modules\.bin\serialportlist.cmd up to C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2
+102 silly gentlyRm containing path C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2 is under npm's control, in C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2
+103 silly gentlyRm deletion target C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2\node_modules\.bin\serialportterm.cmd is under C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2
+104 verbose gentlyRm vacuuming from C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2\node_modules\.bin\serialportterm.cmd up to C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2
+105 silly gentlyRm C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2\node_modules\.bin\serialportlist is being gently removed
+106 silly gentlyRm verifying C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2 is an npm working directory
+107 silly gentlyRm containing path C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2 is under npm's control, in C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2
+108 silly gentlyRm deletion target C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2\node_modules\.bin\serialportlist is under C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2
+109 verbose gentlyRm vacuuming from C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2\node_modules\.bin\serialportlist up to C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2
+110 silly gentlyRm C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2\node_modules\.bin\serialportterm is being gently removed
+111 silly gentlyRm verifying C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2 is an npm working directory
+112 silly gentlyRm containing path C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2 is under npm's control, in C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2
+113 silly gentlyRm deletion target C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2\node_modules\.bin\serialportterm is under C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2
+114 verbose gentlyRm vacuuming from C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2\node_modules\.bin\serialportterm up to C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2
+115 info postuninstall serialport@1.7.4
+116 silly gentlyRm C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2\node_modules\serialport is being purged from base C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2
+117 verbose gentlyRm don't care about contents; nuking C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2\node_modules\serialport
+118 silly vacuum-fs purging C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2\node_modules\serialport
+119 silly vacuum-fs quitting because other entries in C:\Users\Liang\Documents\GitHub\EC544_Group9\challenge_2\node_modules
