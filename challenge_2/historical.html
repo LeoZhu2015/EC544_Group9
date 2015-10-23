@@ -34,6 +34,8 @@
     <script src="smoothie.js"></script>
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="jquery.min.js"></script>
+    <script src="main.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dygraph/1.1.1/dygraph-combined-dev.js">
     </script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -165,35 +167,35 @@
     </div>
    <!-- /#wrapper -->
 <script>
-var socket = io.connect();
-    socket.on("A1", function(newString) {
-/*  console.log(newString);
-  var dataArray = newString.split(',');
-  // var max = dataArray.length()
-  for(var i = 0; i < 3 ; i++){
-    console.log(dataArray[i]);
-  lineA1.append(new Date(endTime - i*500).getTime(),dataArray[i]);
-  };*/
+// var socket2 = io.connect();
+//     socket2.on("A1", function(newString) {
+//   console.log(newString);
+//   var dataArray = newString.split(',');
+//   // var max = dataArray.length()
+//   for(var i = 0; i < 3 ; i++){
+//     console.log(dataArray[i]);
+//   lineA1.append(new Date(endTime - i*500).getTime(),dataArray[i]);
+//   };
 
-var g = new Dygraph(document.getElementById("graphdiv"),
+// var g = new Dygraph(document.getElementById("graphdiv"),
 
 
-  // Here you need to input an arrays in this format or csv.
-  //CSV are preferable.
-   /* newString
-    [1,10,100],
-    [2,20,20],
-    [3,50,60],
-    [4,70,80]*/
-    newString
-,
-{
-    labels: [ "Time", "Sensor-A" ]
+//   // Here you need to input an arrays in this format or csv.
+//   //CSV are preferable.
+//    /* newString
+//     [1,10,100],
+//     [2,20,20],
+//     [3,50,60],
+//     [4,70,80]*/
+//     newString
+// ,
+// {
+//     labels: [ "Time", "Sensor-A" ]
 
-  });
+//   });
 
   
-});
+// });
 </script>
 </body>
 

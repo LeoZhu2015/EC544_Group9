@@ -136,9 +136,13 @@ var query2 = '{\"sensor_name\":message[0],\"time\":{$gt:timestamp1,$lt:timestamp
       assert.equal(err, null);
       if (doc != null) {
       	 //console.log(doc.temperature);
-      	 str=str+doc.time+ "," + doc.temperature+"\n";
-      	 // console.log(doc.time);
+      	 //str=str+doc.time+ "," + doc.temperature+"\n";
+      	 // console.log(dovar d = new Date(parseInt(doc.time));
+        var d = new Date(parseInt(doc.time));
+         str=str+d.getFullYear()+"/"+ (d.getMonth()+1)+"/"+d.getDate()+" "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds()+"," + doc.temperature+"\n";
+         //str=str+doc.time+ "," + doc.temperature+"\n";c.time);
          // io.emit("A1",doc.time);
+
 
       } else {
       	 //console.log(str);
@@ -176,5 +180,84 @@ MongoClient.connect(url, function(err, db) {
 	});
 });
 
+// var averageTemperature = function(TimeArray,){
+//   var timeDifference = TimeArray[TimeArray.length-1]-TimeArray[0];
 
+//   if(TimeArray.length==4 || timeDifference >= 9000){
+
+//      var num = 0;
+
+//      var result = 0;
+
+//      for(var i = 0; i < TempArray.length; i++){
+
+//        if(TempArray[i]!=0){
+
+//          result += TempArray[i];
+
+//          num++;
+//       }
+
+//     }
+
+//      var average = (result/num).toFixed(2);
+
+//      console.log("Data reveived from " + NameArray + ", and the average temperature is "+ average +"*C. ");
+
+//      var myString =  "Data reveived from " + NameArray + ", and the average temperature is "+ average +"*C. ";
+
+//      var timeString = "The time now is " + time.toLocaleTimeString();
+
+//      for(var i=0; i<4;i++){
+
+//       if(TempArray[i]!=0){
+
+//         var individualTemp = "Temperature from sensor " + String.fromCharCode(65+i) + " is " + TempArray[i] + "*C. ";
+
+//         io.emit("chat message", individualTemp);
+
+//       }
+
+//      } 
+
+//      io.emit("chat message", myString + timeString );
+
+//     // io.emit("chat message", timeString);
+
+//      TempArray=[0,0,0,0];
+
+//      TimeArray=[];
+
+//      NameArray=[];
+
+//      PrintCount++;
+
+//    }
+
+//    if (PrintCount==6){
+
+//     for (var i=0; i<CountArray.length; i++){
+
+//       if (CountArray[i]==0){
+
+//           console.log("The sensor "+ String.fromCharCode(65+i) +" has not sent data for 1 min, please check!");
+
+//           var myString = "The sensor "+ String.fromCharCode(65+i) +" has not sent data for 1 min, please check!";
+
+//           var timeString = "The time now is " + time.toLocaleTimeString();
+
+//           io.emit("chat message", myString );
+
+//           io.emit("chat message", timeString);
+
+//       }
+
+//     }
+
+//       PrintCount=0;
+
+//       CountArray=[0,0,0,0];
+
+//    }
+// }
 
