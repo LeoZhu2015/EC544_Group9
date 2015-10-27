@@ -8,10 +8,12 @@ void setup(){
 
 void loop(){
   int pirVal = digitalRead(pirPin);
-
+ 
   if(pirVal == LOW){ //was motion detected
     Serial.println("Motion Detected"); 
     delay(2000); 
+  }else {
+    Serial.println("Motion ended!");
   }
 
 }
