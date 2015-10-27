@@ -20,10 +20,12 @@ http://arduino.cc/en/Guide/Libraries
 #define    RegisterHighLowB    0x8f          // Register to get both High and Low bytes in 1 call.
 #include <math.h>
 
-
-int pin = 2;
-
 #include <Servo.h>
+
+int pin1 = 1;
+int pin2 = 2;
+
+
  
 Servo wheels; // servo for turning the wheels
 Servo esc; // not actually a servo, but controlled like one!
@@ -85,69 +87,56 @@ void loop(){
   
 
 D_CAR();
+esc.write(70); // full forwards
+
 
 
 }
 
 
 double D_CAR(){
-double a = getDistance();
-double b = Get_Lidar();
+double a = getDistance_1();
+double b = getDistance_2();
 double w = 13.0;
 double l = 22.0;
 double c = ((a+b+w)/2);
 double __d = (l/(b-a));
 double __f = atan(__d);
-Serial.print("Ffffff : ");
-Serial.println(__f);
-double g = sin(__f);
-double e = c*g;
-delay(1000);
-double halfofhall = 45;
-if(e < 0){
-double f = halfofhall + e;
-Serial.print("D_CAR : ");
-Serial.println(f);
-double h = radToDeg(__f);
-double Angle_desired = ((l/30)*60) ;
-double Angle_car = h ;
-double Angle_error = Angle_car - Angle_desired ;
-double Angle_wheel = ((Angle_error/45)*60) ;
-Serial.print("Wheel Angle");
-Serial.println(Angle_wheel + 90);
-wheels.write(Angle_wheel + 90);
+
+if (abs(b-a) < 1){
+  wheels.write(90);
 }
-if(e > 0){
-  double f = halfofhall - e;
-Serial.print("D_CAR : ");
-Serial.println(f);
-double h = radToDeg(__f);
-double Angle_desired = ((l/30)*60) ;
-double Angle_car = h;
-double Angle_error = Angle_car - Angle_desired ;
-double Angle_wheel = ((Angle_error/30)*60) ;
-Serial.print("Wheel Angle");
-Serial.println(Angle_wheel + 90);
-wheels.write(Angle_wheel + 90);
+else{
+if (__f < 0){  // The car is going right
+double orientation =  (90 - radToDeg(__f));
+Serial.print("Orientation : ");
+Serial.println(orientation);
+double wheelwrite =  (orientation) ;
+Serial.print("wheelwrite : ");
+Serial.print(wheelwrite);
+wheels.write(wheelwrite) ;
 
 }
-//Serial.print("D_CAR : ");
-//Serial.println(f);
-Serial.print("LIDAR : ");
+
+if( __f > 0){
+double orientation = (90 - radToDeg(__f));
+Serial.print("Orientation : ");
+Serial.println(orientation); 
+double wheelwrite = (orientation);
+Serial.print("wheelwrite : ");
+Serial.print(wheelwrite);
+wheels.write(wheelwrite) ; 
+}
+  
+}
+
+
+
+Serial.print("IR_1 : ");
 Serial.println(b);
-Serial.print("IR : ");
+Serial.print("IR_2 : ");
 Serial.println(a);
 
-//double h = radToDeg(f);
-//double Angle_desired = ((l/30)*60) ;
-//double Angle_car = __f ;
-//double Angle_error = Angle_car - Angle_desired ;
-//double Angle_wheel = ((Angle_error/30)*60) ;
-//Serial.print("Wheel Angle");
-//Serial.println(Angle_wheel);
-
-
-return e ;
 
 }
 
@@ -179,10 +168,10 @@ double Get_Lidar(){
 
 
 
-double getDistance(){
+double getDistance_1(){
   //8cm - 20cm
   double d;
-  int RawADC = analogRead(pin);
+  int RawADC = analogRead(pin1);
   double Raw = (5.0/1023)*RawADC; 
 //  Serial.print("Input: ");
 //  Serial.print(Raw);
@@ -201,4 +190,28 @@ double getDistance(){
   }
   return (1.0/d);  
 }
+
+double getDistance_2(){
+  //8cm - 20cm
+  double d;
+  int RawADC = analogRead(pin2);
+  double Raw = (5.0/1023)*RawADC; 
+//  Serial.print("Input: ");
+//  Serial.print(Raw);
+//  Serial.println(" V");
+  if(Raw<=2.0){
+    d = (Raw-0.25)/50; 
+  }
+  else if(2.0<Raw<2.52){
+    d = (Raw-0.99053)/30.59;  
+  }
+  else if(Raw>=2.52){
+    d = (Raw-1.7555)/15.29;
+  } 
+  else{
+    
+  }
+  return (1.0/d);  
+}
+
 
