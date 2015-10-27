@@ -83,15 +83,10 @@ void calibrateESC(){
 
 void loop(){
   
-//Get_Lidar();
 
 D_CAR();
-//double distanceIR = getDistance();
-//Serial.print(distanceIR);
-//Serial.println(" cm");
-delay(2000);
 
-/////////////////////////////////////////
+
 }
 
 
