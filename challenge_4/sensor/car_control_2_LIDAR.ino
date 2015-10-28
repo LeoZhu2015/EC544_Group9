@@ -26,7 +26,7 @@ bool startup = true; // used to ensure startup only happens once
 int startupDelay = 1000; // time to pause at each calibration step
 double maxSpeedOffset = 45; // maximum speed magnitude, in servo 'degrees'
 double maxWheelOffset = 85; // maximum wheel turn magnitude, in servo 'degrees'
-int sensorPins[] = {1,2}; // Array of pins connected to the sensor Power Enable lines
+int sensorPins[] = {4,6}; // Array of pins connected to the sensor Power Enable lines
 int sensorPinsArraySize = 2; // The length of the array
 int distanceA;
 int distanceB;
@@ -72,13 +72,13 @@ void calibrateESC(){
 }
 
 void loop(){
-  enableDisableSensor(1); // Turn on sensor attached to pin 1 and disable all others
+  enableDisableSensor(4); // Turn on sensor attached to pin 1 and disable all others
   Serial.print("SensorA ");
   Serial.print(readDistance()); // Read Distance from Sensor
   Serial.println(""); // Print "." to separate readings
   distanceA=readDistance();
   
-  enableDisableSensor(2); //Turn on sensor attached to pin 2 and disable all others
+  enableDisableSensor(6); //Turn on sensor attached to pin 2 and disable all others
   Serial.print("SensorB ");
   Serial.print(readDistance()); // Read Distance from Sensor
   Serial.println(""); // Print "." to separate readings
@@ -102,7 +102,7 @@ double D_CAR(double a, double b){
   }
   else{
     if (__f < 0){  // The car is going right
-    double orientation =  (90 - radToDeg(__f));
+    double orientation =  (180 + radToDeg(__f));
     Serial.print("Orientation : ");
     Serial.println(orientation);
     double wheelwrite =  (orientation) ;
@@ -113,7 +113,7 @@ double D_CAR(double a, double b){
     }
 
     if( __f > 0){
-      double orientation = (90 - radToDeg(__f));
+      double orientation = (radToDeg(__f));
       Serial.print("Orientation : ");
       Serial.println(orientation); 
       double wheelwrite = (orientation);
