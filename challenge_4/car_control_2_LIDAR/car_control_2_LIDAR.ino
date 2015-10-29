@@ -14,14 +14,16 @@ http://arduino.cc/en/Guide/Libraries
 #include <I2C.h>
 #include <math.h>
 #include <PID_v1.h>
-
+#include<SoftwareSerial.h>
 
 #define    LIDARLite_ADDRESS     0x62          // Default I2C Address of LIDAR-Lite.
 #define    RegisterMeasure       0x00          // Register to write to initiate ranging.
 #define    MeasureValue          0x04          // Value to initiate ranging.
 #define    RegisterHighLowB      0x8f          // Register to get both High and Low bytes in 1 call.
 #define     THETA                60  //max degree
-#define    Setpoint              80      
+#define    Setpoint              80 
+
+SoftwareSerial XBee(2,3); //RX,TX
 Servo wheels; // servo for turning the wheels
 Servo esc; // not actually a servo, but controlled like one!
 bool startup = true; // used to ensure startup only happens once
@@ -42,6 +44,7 @@ double consKp=1, consKi=0, consKd=0.25;
 //Specify the links and initial tuning parameters
 //PID myPID(&Input, &Output, &Setpoint, consKp, consKi, consKd, DIRECT);
 void setup(){
+  XBee.begin(9600);
   Serial.begin(9600); //Opens serial connection at 115200bps.     
   I2c.begin(); // Opens & joins the irc bus as master
   delay(100); // Waits to make sure everything is powered up before sending or receiving data  
@@ -83,21 +86,55 @@ void calibrateESC(){
 }
 
 void loop(){
-  enableDisableSensor(4); // Turn on sensor attached to pin 1 and disable all others
-//  Serial.print("SensorA ");
-//  Serial.print(readDistance()); // Read Distance from Sensor
-//  Serial.println(""); // Print "." to separate readings
-  distanceA=readDistance();
+char command;
+command = XBee.read();
+if(command=='w'){
+  esc.write(90);
+  esc.write(70);
+  delay(1000);
+}
+else if(command=='s'){
+  esc.write(90);
+    delay(1000);
+}
+else if(command=='a'){
+  esc.write(90);
+  esc.write(70);
+  wheels.write(45);
+    delay(1000);
+}
+else if(command=='d'){
+  esc.write(90);
+  esc.write(70);
+  wheels.write(135);
+    delay(1000);
+}
+else{
+ if(getDistance(2)>40){
+   enableDisableSensor(4); // Turn on sensor attached to pin 1 and disable all others
+ //  Serial.print("SensorA ");
+ //  Serial.print(readDistance()); // Read Distance from Sensor
+ //  Serial.println(""); // Print "." to separate readings
+   distanceA=readDistance();
   
-  enableDisableSensor(6); //Turn on sensor attached to pin 2 and disable all others
-//  Serial.print("SensorB ");
-//  Serial.print(readDistance()); // Read Distance from Sensor
-//  Serial.println(""); // Print "." to separate readings
-  distanceB=readDistance();
+   enableDisableSensor(6); //Turn on sensor attached to pin 2 and disable all others
+ //  Serial.print("SensorB ");
+ //  Serial.print(readDistance()); // Read Distance from Sensor
+ //  Serial.println(""); // Print "." to separate readings
+   distanceB=readDistance();
   
-  
- D_CAR((double)distanceA,(double)distanceB);
- esc.write(80); // full forwards
+ 
+    D_CAR((double)distanceA,(double)distanceB);
+    esc.write(70); // full forwards
+   } 
+    else if(abs(distanceA-distanceB)>20){
+      esc.write(100);
+      delay(1000);
+     }
+     else{
+       esc.write(90);
+     }
+}  
 }
 
 
@@ -121,6 +158,10 @@ double D_CAR(double a, double b){
   Serial.println(a);
   Serial.println(b);
   Serial.println();
+
+//  if(a>200||b>200){
+//    
+//  }
   if(abs(a-b)>20&&abs(a-b)<150){
     //Angle first
         if (__f < 0){  // The car is going right
@@ -151,19 +192,19 @@ double D_CAR(double a, double b){
     Serial.println("I'm goint straight");
   }
   else if(gap>0){
-    if(abs(gap)>30){
+    if(abs(gap)>20){
       theta = THETA;
     }else{
-      theta = (gap/30)*THETA;
+      theta = (gap/20)*THETA;
     } 
     wheels.write(90-theta);
     Serial.println("I am going right");
   }
   else if(gap<0){
-    if(abs(gap)>30){
+    if(abs(gap)>20){
       theta = THETA;
     }else{
-      theta = (abs(gap)/30)*THETA;
+      theta = (abs(gap)/20)*THETA;
     } 
     wheels.write(90+theta);
     Serial.println("I am going left");
@@ -253,3 +294,31 @@ int readDistance(){
    
 }
 
+double getDistance(int pinNum){
+  double d;
+  int RawADC = analogRead(pinNum);
+  double RawADC_do = (double)RawADC;
+  double Raw = (5.0/1023)*RawADC; 
+//  Serial.print("Input: ");
+//  Serial.print(Raw);
+//  Serial.println(" V");
+  if(Raw<1.25){
+  //   double distance = exp(8.5841-log(RawADC_do));
+  //   double distance_cm= 2.54*distance;     
+ //    return distance_cm;
+    d = 509.6*exp((-4.652)*Raw)+118.6*exp((-0.7075)*Raw);
+    return d; 
+  }
+  else if(1.25<=Raw<=2.0){
+    d = (Raw-0.25)/50; 
+    return (1.0/d); 
+  }
+  else if(2.0<Raw<2.52){
+    d = (Raw-0.99053)/30.59; 
+    return (1.0/d);  
+  }
+  else if(Raw>=2.52){
+    d = (Raw-1.7555)/15.29;
+    return ((1.0/d)); 
+  } 
+}
