@@ -20,7 +20,8 @@ http://arduino.cc/en/Guide/Libraries
 #define    RegisterMeasure       0x00          // Register to write to initiate ranging.
 #define    MeasureValue          0x04          // Value to initiate ranging.
 #define    RegisterHighLowB      0x8f          // Register to get both High and Low bytes in 1 call.
-
+#define     THETA                60  //max degree
+#define    Setpoint              80      
 Servo wheels; // servo for turning the wheels
 Servo esc; // not actually a servo, but controlled like one!
 bool startup = true; // used to ensure startup only happens once
@@ -32,14 +33,14 @@ int sensorPinsArraySize = 2; // The length of the array
 int distanceA;
 int distanceB;
 //Define Variables we'll be connecting to
-double Setpoint, Input, Output;
+//double Setpoint, Input, Output;
 
 //Define the aggressive and conservative Tuning Parameters
 double aggKp=4, aggKi=0.2, aggKd=1;
 double consKp=1, consKi=0, consKd=0.25;
 
 //Specify the links and initial tuning parameters
-PID myPID(&Input, &Output, &Setpoint, consKp, consKi, consKd, DIRECT);
+//PID myPID(&Input, &Output, &Setpoint, consKp, consKi, consKd, DIRECT);
 void setup(){
   Serial.begin(9600); //Opens serial connection at 115200bps.     
   I2c.begin(); // Opens & joins the irc bus as master
@@ -57,8 +58,7 @@ void setup(){
    *  you don't need to re-calibrate each time, and you can comment this part out.
    */
   calibrateESC();
-  Setpoint = 60;
-  myPID.SetMode(AUTOMATIC);
+  //myPID.SetMode(AUTOMATIC);
 }
 /* Convert degree value to radians */
 double degToRad(double degrees){
@@ -102,44 +102,28 @@ void loop(){
 
 
 double D_CAR(double a, double b){
-  double w = 13.0;
-  double l = 27.0;
+  double w = 13.0; //width of the car
+  double l = 27.0; //length of the car
   double c = ((a+b+w)/2);
-  double __d = (l/(b-a));
+  double __d = (l/(a-b));
   double __f = atan(__d);
+  double g = sin(__f);
+  double e = c*g; //distance to the wall from center of the car
   double gap1 = Setpoint-a;
   double gap2 = Setpoint-b;
-   Input = a;
-   myPID.SetTunings(consKp, consKi, consKd);
-   myPID.Compute();
-  Serial.println(Output);
-  if (abs(gap1)<10||abs(gap2)<10){
-    wheels.write(90);
-    Serial.println("I'm goint straight");
-  }
-  else if(gap1>0&&abs(gap1)>15){//Let the car go right
-    if(Output>50){
-      wheels.write(45);
-    }
-    else{
-       wheels.write(90-Output);
-    }
-      Serial.println("I'm goint right");
-   }
-  else if(gap1<0&&abs(gap1)>15){
-    if(Output>50){
-      wheels.write(135);
-    }else{
-      wheels.write(90+Output);
-    }
-      Serial.println("I'm goint left");
-   }
-   else{
-    if(b-a<5){
-      wheels.write(90);
-      Serial.println("a");
-    }
-    if (__f < 0){  // The car is going right
+  double gap = Setpoint -abs(e);
+  double theta;
+ //  Input = a;
+  // myPID.SetTunings(consKp, consKi, consKd);
+  // myPID.Compute();
+  //Serial.println(Output);
+  //Serial.println(__f);
+  Serial.println(a);
+  Serial.println(b);
+  Serial.println();
+  if(abs(a-b)>20&&abs(a-b)<150){
+    //Angle first
+        if (__f < 0){  // The car is going right
     double orientation =  (180 + radToDeg(__f)-5);
     //Serial.print("Orientation : ");
     //Serial.println(orientation);
@@ -160,7 +144,83 @@ double D_CAR(double a, double b){
       wheels.write(wheelwrite) ; 
       Serial.println("c");
       }
-    }
+  }
+  else if(abs(a-b)<20){ //distance first
+   if (abs(gap)<5||abs(gap)<5){
+    wheels.write(90);
+    Serial.println("I'm goint straight");
+  }
+  else if(gap>0){
+    if(abs(gap)>30){
+      theta = THETA;
+    }else{
+      theta = (gap/30)*THETA;
+    } 
+    wheels.write(90-theta);
+    Serial.println("I am going right");
+  }
+  else if(gap<0){
+    if(abs(gap)>30){
+      theta = THETA;
+    }else{
+      theta = (abs(gap)/30)*THETA;
+    } 
+    wheels.write(90+theta);
+    Serial.println("I am going left");
+  }
+  }
+else{
+  wheels.write(90);
+}
+  
+//  if (abs(e)<5||abs(e)<5){
+//    wheels.write(90);
+//    Serial.println("I'm goint straight");
+//  }
+//  else if(gap1>0&&abs(gap1)>15){//Let the car go right
+//    if(Output>50){
+//      wheels.write(45);
+//    }
+//    else{
+//       wheels.write(90-Output);
+//    }
+//      Serial.println("I'm goint right");
+//   }
+//  else if(gap1<0&&abs(gap1)>15){
+//    if(Output>50){
+//      wheels.write(135);
+//    }else{
+//      wheels.write(90+Output);
+//    }
+//      Serial.println("I'm goint left");
+//   }
+//   else{
+//    if(abs(b-a)<5){
+//      wheels.write(90);
+//      Serial.println("a");
+//    }
+//    if (__f < 0){  // The car is going right
+//    double orientation =  (180 + radToDeg(__f)-5);
+//    //Serial.print("Orientation : ");
+//    //Serial.println(orientation);
+//    double wheelwrite =  (orientation) ;
+////    Serial.print("wheelwrite : ");
+////    Serial.print(wheelwrite);
+//    wheels.write(wheelwrite) ;
+//    Serial.println("b");
+//    }
+//
+//    if( __f > 0){
+//      double orientation = (radToDeg(__f)-5);
+////      Serial.print("Orientation : ");
+////      Serial.println(orientation); 
+//      double wheelwrite = (orientation);
+////      Serial.print("wheelwrite : ");
+////      Serial.print(wheelwrite);
+//      wheels.write(wheelwrite) ; 
+//      Serial.println("c");
+//      }
+//    }
 }
 
 
