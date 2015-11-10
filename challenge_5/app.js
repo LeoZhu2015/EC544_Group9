@@ -15,9 +15,9 @@ var sp;
 
 sp = new SerialPort.SerialPort(portName, portConfig);
 
-var r1 = 35; //RSSI distance value of xbee 1
-var r2 = 20; // RSSI distance value of xbee 2
-var r3 = 40; //RSSI distance value of xbee 3
+var r1; //RSSI distance value of xbee 1
+var r2; // RSSI distance value of xbee 2
+var r3; //RSSI distance value of xbee 3
 
 
 http.listen(3000, function() {
@@ -36,16 +36,22 @@ sp.on('data', function(data) {
   if (message[0] === 'r1') {
     data = message[1];
     console.log(data);
+    r1 = data;
     socket.emit("r1", data);
   }
   if (message[0] === 'r2') {
     data = message[1];
+    r2 = data;
     socket.emit("r2", data);
   }
   if (message[0] === 'r3') {
     data = message[1];
+    r3 = data;
     socket.emit("r3", data);
   }
+  var locate = trilateration(r1, r2, r3);
+  socket.emit('locate', locate);
+
 });
 
 
@@ -53,9 +59,7 @@ sp.on('data', function(data) {
 
 socket.on('connection', function(socket){
 
-  socket.emit('r1', r1);
-  socket.emit('r2', r2);
-  socket.emit('r3', r3);
+  console.log("Client Connected");
 
 });
 

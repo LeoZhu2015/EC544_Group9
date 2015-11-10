@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8" />
   <title>Localization</title>
-  <script src="/socket.io/socket.io.js"></script>
+  <script src="/socket.io.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.js"></script>
 </head>
 
 <body>
 
-  <form>
+  <!-- <form>
     Sensor 2 : X-axis:<br>
     <input id="sensor two x" type="text" name="">
     <br>
@@ -24,18 +24,32 @@
     <br>
     <input type="button" id="Map" value="Map">
 
-    <input type="button" id="Plot" value="Plot">
 
-  </form>
+  </form> -->
 
 
-  <div class="box">
-
+  <div id="sensor_group">
+    <h1 id="one">R1 = </h1>
+    <h1 id="two">R2 = </h1>
+    <h1 id="three">R3 = </h1>
+  </div>
+  <div id="value_group">
+    <h1 id="val_one"> </h1>
+    <h1 id="val_two"> </h1>
+    <h1 id="val_three"> </h1>
+    <h1 id="val_four"> </h1>
   </div>
 
-  <!-- <canvas id="myCanvas" width="200" height="100" style="border:1px solid #000000;">
+  <input type="button" id="Map" value="Map">
+
+
+  <!-- <div class="box">
+
+  </div> -->
+
+  <canvas id="myCanvas" width="200" height="200" style="border:1px solid #000000;">
   Your browser does not support the HTML5 canvas tag.
-  </canvas> -->
+  </canvas>
 
 
 <script>
@@ -43,20 +57,37 @@
 var socket = io();
 
 // var canvas = $( "#myCanvas" );
-$( "#Map" ).click(function() {
-$( ".box" ).append( '<canvas id="myCanvas" width="200" height="100" style="border:1px solid #000000;"></canvas>' );
-});
+// $( "#Map" ).click(function() {
+// $( ".box" ).append( '<canvas id="myCanvas" width="200" height="100" style="border:1px solid #000000;"></canvas>' );
+// });
+//
 
-$( "#Plot" ).click(function() {
-  var c = document.getElementById("myCanvas");
-  var ctx = c.getContext("2d");
-  ctx.fillStyle = "#FF0000";
-  ctx.fillRect(10,0,10,10);
-});
+socket.on('locate',function(locate){
 
-function evaluate(){
-$( ".box" ).append( "<p>Test</p>" );
-}
+    var x = locate.X ;
+    var y = locate.Y ;
+    var c = document.getElementById("myCanvas");
+    var ctx = c.getContext("2d");
+    ctx.fillStyle = "#FF0000";
+    ctx.fillRect(x,y,10,10);
+
+  })
+
+  socket.on("r1", function(data) {
+    $(document.getElementById('val_one')).text(data);
+  });
+
+  socket.on("r2", function(data) {
+    $(document.getElementById('val_two')).text(data);
+  });
+
+  socket.on("r3", function(data) {
+    $(document.getElementById('val_three')).text(data);
+  });
+
+
+
+
 
 </script>
 
