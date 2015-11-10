@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Localization</title>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.js"></script>
+</head>
+
+<body>
+
+  <form>
+    Sensor 2 : X-axis:<br>
+    <input id="sensor two x" type="text" name="">
+    <br>
+    Sensor 2 : Y axis:<br>
+    <input id="sensor two y" type="text" name="should be 0" >
+    <br>
+    Sensor 3 : X-axis:<br>
+    <input id="sensor three x" type="text" name="">
+    <br>
+    Sensor 3 : Y axis:<br>
+    <input id="sensor three y" type="text" name="" >
+    <br>
+    <input type="button" id="Map" value="Map">
+
+    <input type="button" id="Plot" value="Plot">
+
+  </form>
+
+
+  <div class="box">
+
+  </div>
+
+  <!-- <canvas id="myCanvas" width="200" height="100" style="border:1px solid #000000;">
+  Your browser does not support the HTML5 canvas tag.
+  </canvas> -->
+
+
+<script>
+
+var socket = io();
+
+// var canvas = $( "#myCanvas" );
+$( "#Map" ).click(function() {
+$( ".box" ).append( '<canvas id="myCanvas" width="200" height="100" style="border:1px solid #000000;"></canvas>' );
+});
+
+$( "#Plot" ).click(function() {
+  var c = document.getElementById("myCanvas");
+  var ctx = c.getContext("2d");
+  ctx.fillStyle = "#FF0000";
+  ctx.fillRect(10,0,10,10);
+});
+
+function evaluate(){
+$( ".box" ).append( "<p>Test</p>" );
+}
+
+</script>
+
+
+</body>
+</html>
