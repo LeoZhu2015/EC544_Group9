@@ -2,7 +2,7 @@ var SerialPort = require("serialport");
 var app = require('express')();
 var xbee_api = require('xbee-api');
 var ml = require('ml-knn');
-
+var fs = require('fs');  //Qingqing Add this in order to read file
 
 var C = xbee_api.constants;
 var XBeeAPI = new xbee_api.XBeeAPI({
@@ -19,16 +19,42 @@ portConfig = {
   parser: XBeeAPI.rawParser()
 };
 
-var sp;
+var sp;var fs = require('fs');
 sp = new SerialPort.SerialPort(portName, portConfig);
 
-var data = [[55.70,58.18,50.72,51.70],
-            [65.30,60.70,45.20,43.50],
-            [57.82,54.45,46.54,48.40],
-            [53.41,63.18,50.09,53.92],
-           ];
+//My code of reading the file starts here
+var obj;
+fs.readFile('traindata1.json', function(err, f){
+    var array = f.toString().split('\n');
+    // use the array
+    console.log(array);
+  var jsonstring; 
+  var tempArray = [];
+  var result = [];
+  var data = [];
+  for(var i=0; i<array.length; i++){
+    jsonstring = JSON.parse(array[i]);
+    tempArray.push(jsonstring['sensor1']);
+    tempArray.push(jsonstring['sensor2']);
+    tempArray.push(jsonstring['sensor3']);
+    tempArray.push(jsonstring['sensor4']);
+    data.push(tempArray);
+    tempArray=[];
+    result.push(jsonstring['partition']);
+  }
+  console.log(result);
+  console.log(data);   
+});
 
-var result = [1,2,3,4];
+//Code of reading file ends here.
+
+// var data = [[55.70,58.18,50.72,51.70],
+//             [65.30,60.70,45.20,43.50],
+//             [57.82,54.45,46.54,48.40],
+//             [53.41,63.18,50.09,53.92],
+//            ];
+
+// var result = [1,2,3,4];
 
 var knn = new ml();
 knn. train(data, result);
