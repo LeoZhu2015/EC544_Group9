@@ -71,18 +71,24 @@ XBeeAPI.on("frame_object", function(frame) {
     {
       // code fo perform machine learning
       console.log(global.sensor_one,global.sensor_two,global.sensor_three,global.sensor_four);
-      var objnew = {sensor1: global.sensor_one, sensor2: global.sensor_two, sensor3: global.sensor_three, sensor4: global.sensor_four, partition: '1'};
+      var objnew = {sensor1: global.sensor_one, sensor2: global.sensor_two, sensor3: global.sensor_three, sensor4: global.sensor_four, partition: '11'};
       var jsonString =JSON.stringify(objnew)+'\n';
       // train_data.writeFile(file, objnew, function(err){
       //   console.error(err);
       // })
+
       fs.appendFile("traindata.json", jsonString, function(err) {
           if(err) {
               console.log(err);
           } else {
               console.log("The file was saved!");
           }
+
       }); 
+      global.sensor_one = 0;
+      global.sensor_two = 0;
+      global.sensor_three = 0;
+      global.sensor_four = 0;
     }
   }
 });

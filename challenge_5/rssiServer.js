@@ -24,7 +24,7 @@ app.get('/', function(req, res) {
 
 var portName = process.argv[2];
 
-var sampleDelay = 3000;
+var sampleDelay = 1000;
 
 portConfig = {
 	baudRate: 9600,
@@ -98,6 +98,12 @@ global.sensor_one = 0;
 global.sensor_two = 0;
 global.sensor_three = 0;
 global.sensor_four = 0;
+global.counter =[0,0,0,0];
+global.temp_one = 0;
+global.temp_two = 0;
+global.temp_three = 0;;
+global.temp_four = 0;
+
 
 XBeeAPI.on("frame_object", function(frame) {
   if (frame.type == 144){
@@ -106,18 +112,36 @@ XBeeAPI.on("frame_object", function(frame) {
     var sensordata = (frame.data[0]);
     console.log(sensordata);
    
-    if (frame.data[1] == '1')
-      global.sensor_one = sensordata;
-    if (frame.data[1] == '2')
-      global.sensor_two = sensordata;
-    if (frame.data[1] == '3')
-      global.sensor_three = sensordata;
-    if (frame.data[1] == '4')
-      global.sensor_four = sensordata;
+    if (frame.data[1] == '1'){
+      global.temp_one +=sensordata;
+      global.counter[0]++;
+    }
+    if (frame.data[1] == '2'){
+      global.temp_two +=sensordata;
+      global.counter[1]++;
+    }
+    if (frame.data[1] == '3'){
+      global.temp_three +=sensordata;
+      global.counter[2]++;
+    }
+    if (frame.data[1] == '4'){
+      global.temp_four+=sensordata;
+      global.counter[3]++;
+    }
+
+ 
+    if(counter[0]==5 || counter[1]==5 || counter[2]==5 || counter[3]==5){
+      global.sensor_one = global.temp_one/global.counter[0];
+      global.sensor_two = global.temp_two/global.counter[1];
+      global.sensor_three = global.temp_three/global.counter[2];
+      global.sensor_four = global.temp_four/global.counter[3];
+    }
 
     if((global.sensor_one != 0) && (global.sensor_two != 0) && (global.sensor_three != 0) && (global.sensor_four != 0))
     {
+     
       // code fo perform machine learning
+
       console.log(global.sensor_one,global.sensor_two,global.sensor_three,global.sensor_four);
       var dataset = [[global.sensor_one,global.sensor_two,global.sensor_three,global.sensor_four]];
       var ans = global.knn.predict(dataset);
@@ -128,6 +152,16 @@ XBeeAPI.on("frame_object", function(frame) {
       io.emit('r2',global.sensor_two);
       io.emit('r3',global.sensor_three);
       io.emit('r4',global.sensor_four);
+
+      global.sensor_one = 0;
+      global.sensor_two = 0;
+      global.sensor_three = 0;
+      global.sensor_four = 0;
+      global.counter =[0,0,0,0];
+      global.temp_one = 0;
+      global.temp_two = 0;
+      global.temp_three = 0;;
+      global.temp_four = 0;
     }
   }
 });
