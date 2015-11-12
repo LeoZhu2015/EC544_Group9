@@ -17,9 +17,18 @@ http.listen(3000, function() {
   console.log('Listening on port 3000');
 });
 
-app.use('/', express.static(__dirname + '/Public'));
+//app.use(express.static(__dirname + '/Public'));
+//app.use( express.static(__dirname + '/Public/css'));
+
+
+app.use(express.static(__dirname + '/Public/css'));
+app.use(express.static(__dirname + '/Public'));
+
 app.get('/', function(req, res) {
   res.sendfile('index.html');
+});
+app.get('/index', function(req, res){
+  res.sendfile('newindex.html');
 });
 
 var portName = process.argv[2];
@@ -36,7 +45,7 @@ sp = new SerialPort.SerialPort(portName, portConfig);
 
 //My code of reading the file starts here
 var obj;
-fs.readFile('traindata.json', function(err, f){
+fs.readFile('fourdata.json', function(err, f){
     var array = f.toString().split('\n');
     // use the array
     console.log(array);
