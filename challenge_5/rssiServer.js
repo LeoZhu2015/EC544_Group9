@@ -1,5 +1,9 @@
 var SerialPort = require("serialport");
-var app = require('express')();
+var express = require('express');
+var app = express();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+// var socket = io();
 var xbee_api = require('xbee-api');
 var ml = require('ml-knn');
 var fs = require('fs');  //Qingqing Add this in order to read file
@@ -9,6 +13,14 @@ var XBeeAPI = new xbee_api.XBeeAPI({
   api_mode: 2
 });
 
+http.listen(3000, function() {
+  console.log('Listening on port 3000');
+});
+
+app.use('/', express.static(__dirname + '/Public'));
+app.get('/', function(req, res) {
+  res.sendfile('index.html');
+});
 
 var portName = process.argv[2];
 
@@ -24,7 +36,7 @@ sp = new SerialPort.SerialPort(portName, portConfig);
 
 //My code of reading the file starts here
 var obj;
-fs.readFile('traindata1.json', function(err, f){
+fs.readFile('traindata.json', function(err, f){
     var array = f.toString().split('\n');
     // use the array
     console.log(array);
@@ -43,7 +55,9 @@ fs.readFile('traindata1.json', function(err, f){
     result.push(jsonstring['partition']);
   }
   console.log(result);
-  console.log(data);   
+  console.log(data);  
+  global.knn = new ml();
+  global.knn.train(data, result); 
 });
 
 //Code of reading file ends here.
@@ -56,8 +70,8 @@ fs.readFile('traindata1.json', function(err, f){
 
 // var result = [1,2,3,4];
 
-var knn = new ml();
-knn. train(data, result);
+//   var knn = new ml();
+//   knn. train(data, result); 
 
 //Create a packet to be sent to all other XBEE units on the PAN.
 // The value of 'data' is meaningless, for now.
@@ -106,23 +120,14 @@ XBeeAPI.on("frame_object", function(frame) {
       // code fo perform machine learning
       console.log(global.sensor_one,global.sensor_two,global.sensor_three,global.sensor_four);
       var dataset = [[global.sensor_one,global.sensor_two,global.sensor_three,global.sensor_four]];
-      var ans = knn.predict(dataset);
+      var ans = global.knn.predict(dataset);
       console.log("Here I am: "+ans);
-
-    //   var y = knn.predict({
-    //   x : [sensor_one,sensor_two,sensor_three,sensor_four],
-    //   k : 4,
-    //   // weightf : {type : 'gaussian', sigma : 10.0},
-    //   weightf : function(distance) {return 1./distance},
-    //   distance : {type : 'euclidean'}
-    //   });
-
-    //   console.log(y);
-    //   global.sensor_one = 0;
-    //   global.sensor_two = 0;
-    //   global.sensor_three = 0;
-    //   global.sensor_four = 0;
-
+      var locate = ans;
+      io.emit('locate', locate);
+      io.emit('r1',global.sensor_one);
+      io.emit('r2',global.sensor_two);
+      io.emit('r3',global.sensor_three);
+      io.emit('r4',global.sensor_four);
     }
   }
 });
