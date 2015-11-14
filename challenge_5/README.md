@@ -1,6 +1,7 @@
-Trilateration using this algorithm :- https://en.wikipedia.org/wiki/Trilateration
+Localization of xbee using ml_knn library for Knn in javascript. 4 Xbee's placed in differenct locations used to 
+locate the controller. 
 
-Server reads data using serial port from the three xbee's, the alforithm is executed on the server and the resulting x and y coordinate of the position of the crawler is sent as a JSON file to the client 
-
-On the client the JSON is parsed and displayed on a rectangular map using HTML5 canvas.
-
+Usage
+First collect training data to train the algorithm to detect the correct partition.
+Then performs the predict function to predict the current partition in which the controller is present.
+Location is visualized using the HTML canvas property.
