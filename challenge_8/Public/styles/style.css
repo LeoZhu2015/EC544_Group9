@@ -1,0 +1,66 @@
+#sourcevid{
+  height: 1px;
+  width: 1px;
+
+}
+
+#remotevid{
+  position: relative;
+  height:400px;
+  width:600px;
+  top: 100px;
+right:-200px;
+}
+
+#start{
+  position: relative;
+  top: -100px;
+}
+
+#stop{
+  position: relative;
+  left: -75px;
+  top: -50px;
+}
+
+#connect{
+  position: relative;
+  left: -750px;
+
+}
+
+#hang{
+  position: relative;
+  left: -815px;
+  top: 50px;
+}
+
+#drive{
+  position:relative;
+  top: 100px;
+  left: -870px;
+}
+
+#up{
+  position: relative;
+  top:-400px;
+  left: 100px;
+}
+
+#left{
+  position: relative;
+  top:-300px;
+  left: 60px;
+}
+
+#right{
+  position: relative;
+  top:-320px;
+  left: 140px;
+}
+
+#down{
+  position: relative;
+  top:-340px;
+  left: 100px;
+}
