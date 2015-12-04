@@ -1,13 +1,15 @@
 var socket =  io() ;
 
 function drive(){
+  var delay = 1000;
 
   var drive = 'Drive Mode Engaged';
   socket.emit('drive', drive);
   console.log('drive mode');
 
   $(document).keypress(function(e) {
-    if(e.which == 97) {                  //Left
+
+    if(e.which == 97) { // Left
       $("#left").css('color','red');
       $("#up").css('color','black');
       $("#right").css('color','black');
@@ -15,7 +17,9 @@ function drive(){
       console.log('left');
       var left = 'left';
       socket.emit('left', left);
-     }
+
+  }
+
     if(e.which == 100) {                //Right
       $("#left").css('color','black');
       $("#up").css('color','black');
@@ -49,4 +53,10 @@ function drive(){
 
    });
   $("#left").css('color','black');
+}
+
+function auto(){
+  var auto = 'auto';
+  socket.emit('auto', auto);
+  console.log('Auto mode engaged');
 }

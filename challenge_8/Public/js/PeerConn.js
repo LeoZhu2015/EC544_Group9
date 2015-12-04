@@ -12,9 +12,6 @@
   var isVideoMuted = false;
   //>>>>>>>>>>>>>>>>>>>>>>>>>> Get User Media
 
-  var drive = 'drive';
-  socket.emit('drive', drive);
-
   function startVideo() {
     navigator.getUserMedia({
       audio: true,
