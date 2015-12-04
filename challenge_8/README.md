@@ -1,2 +1,2 @@
-# Challenge 8
-Webpage to display camera stream from the crawler and to control/localize the crawler
+# WebRTC-video-conferencing-client
+In browser conferencing client using WebRTC and socket.io

@@ -64,3 +64,9 @@ right:-200px;
   top:-340px;
   left: 100px;
 }
+
+#auto{
+  position: relative;
+  left: -930px;
+  top: 150px;
+}

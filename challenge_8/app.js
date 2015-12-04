@@ -3,18 +3,60 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var SerialPort = require("serialport");
+var xbee_api = require('xbee-api');
 
-var portName = process.argv[2],
-  portConfig = {
-    baudRate: 9600,
-    parser: SerialPort.parsers.readline("\n")
-  };
-// var sp;
-// sp = new SerialPort.SerialPort(portName, portConfig);
+var C = xbee_api.constants;
+var XBeeAPI = new xbee_api.XBeeAPI({
+  api_mode: 2
+});
+
+var portName = process.argv[2];
+
+var sp;
+sp = new SerialPort.SerialPort(portName, portConfig);
+
+var sampleDelay = 3000;
+
+var portConfig = {
+	baudRate: 9600,
+  parser: XBeeAPI.rawParser()
+};
+
+//---------------------------->
+
+//
+// var RSSIRequestPacket = {
+//   type: C.FRAME_TYPE.ZIGBEE_TRANSMIT_REQUEST,
+//   destination64: "000000000000ffff",
+//   broadcastRadius: 0x01,
+//   options: 0x00,
+//   data: "test"
+// }
+
+var requestRSSI = function(letter){
+
+  var RSSIRequestPacket = {
+    type: C.FRAME_TYPE.ZIGBEE_TRANSMIT_REQUEST,
+    destination64: "000000000000ffff",
+    broadcastRadius: 0x01,
+    options: 0x00,
+    data: "test"
+  }
+  RSSIRequestPacket.data = letter ;
+
+  sp.write(XBeeAPI.buildFrame(RSSIRequestPacket));
+}
+
+//----------------------------->
+
+
+
 
 http.listen(3000, function() {
   console.log('Listening on port 3000');
 });
+
+
 
 app.use('/', express.static(__dirname + '/Public'));
 app.use('/',express.static(__dirname + '/Public/js'));
@@ -35,32 +77,51 @@ socket.on('message', function(message) {
   socket.broadcast.emit('message', message);
 });
 
-socket.on('drive', function(drive){
+socket.on('drive', function(drive){   //Drive Message
   console.log(drive);
-  // sp.write('drive');
+
+
+  requestRSSI('z');
+
 });
 
-socket.on('right', function(right){
+socket.on('auto', function(auto){  //Auto Message
+  console.log(auto);
+
+
+  requestRSSI('x');
+
+});
+
+
+socket.on('right', function(right){  //Right message
     console.log(right);
-    // sp.write('d');
+
+
+    requestRSSI('d');
+
+
 });
 
-socket.on('left', function(left){
+socket.on('left', function(left){  //Left Message
   console.log(left);
-  // sp.write('a');
+
+  requestRSSI('a');
+
 });
 
-socket.on('up', function(up){
+socket.on('up', function(up){ // Up message
   console.log(up);
-  // sp.write('w');
+
+  requestRSSI('w');
+
 });
 
-socket.on('down', function(down){
+socket.on('down', function(down){ // Down message
   console.log(down);
-  // sp.write('s');
+
+  requestRSSI('s');
 })
-
-
 
 
 });
