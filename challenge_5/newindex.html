@@ -83,27 +83,6 @@
                         <li>
                             <a href="/index"><i class="fa fa-dashboard fa-fw"></i>Real-Time</a>
                         </li>
-                        <li>
-                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Historical<span class="fa arrow"></span><br></a>
-                            <a><i class="fa fa-bar-chart-o fa-fw"></i>Start Time: <br><input type="text" id="starttime" class="form-control" placeholder="Format:yy/mm/dd/hh"><br></a>
-                            <a><i class="fa fa-bar-chart-o fa-fw"></i>End Time: <br><input type="text" id="endtime" class="form-control" placeholder="Format:yy/mm/dd/hh"><br></a>
-
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a id="sensorA">Sensor A</a>
-                                </li>
-                                <li>
-                                    <a id="sensorB">Sensor B</a>
-                                </li>
-                                <li>
-                                    <a id="sensorC">Sensor C</a>
-                                </li>
-                                <li>
-                                    <a id="sensorD">Sensor D</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
 
                     </ul>
                 </div>
@@ -115,7 +94,7 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Dashboard</h1>
+                    <h1 class="page-header">Localization</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -136,7 +115,7 @@
                         </div>
                         <a href="#">
                             <div class="panel-footer">
-                                <span class="pull-left">Historical Data</span>
+                                <span class="pull-left"></span>
                                 <span class="pull-right"></span>
                                 <div class="clearfix"></div>
                             </div>
@@ -234,13 +213,13 @@
                             </div>
                         </div>
                         <!-- /.panel-heading -->
-                        <div class="panel-body">
+                        <div >
                            <!-- <div id="morris-area-chart"></div>-->
                              <canvas id="myCanvas" width="800" height="400">
-                                <img src="EC544_new.png" id="background" />
+                                <img src="EC544_final.png" id="background" />
                               Your browser does not support the HTML5 canvas tag.
                             </canvas>
-                            <div id="dy">
+                            
                          <!-- <div id="graphdiv"></div>-->
                               </div>
                         </div>
@@ -263,14 +242,17 @@
 
 
 <script>
-
-    var socket = io();
-
-    var c = document.getElementById("myCanvas");
-    var ctx = c.getContext("2d");
+var c = document.getElementById("myCanvas");
+var ctx = c.getContext("2d");
     var imageObj = new Image();
     imageObj.onload = function() {
     ctx.drawImage(imageObj, 0, 0);
+//drawbox(0);
+    var socket = io();
+
+    
+    
+
     // ctx.fillStyle = "rgba(255,0,0,0)";
     // ctx.fillRect(680,380,10,10);
     socket.on('locate',function(locate){
@@ -278,7 +260,7 @@
        })
     re
   };
-     imageObj.src = "EC544_new.png"
+     imageObj.src = "Challenge_7.png"
 
 
 
@@ -300,91 +282,92 @@
 
   function drawbox(n){
        ctx.fillStyle = "rgba(255,0,0,0)";
-       ctx.clearRect(80,20,10,10);
+       ctx.clearRect(30,100,10,10);
        ctx.fillStyle = "rgba(255,0,0,0)";
-       ctx.clearRect(180,20,10,10);
+       ctx.clearRect(130,20,10,10);
        ctx.fillStyle = "rgba(255,0,0,0)";
-       ctx.clearRect(280,20,10,10);
+       ctx.clearRect(250,20,10,10);
        ctx.fillStyle = "rgba(255,0,0,0)";
-       ctx.clearRect(480,20,10,10);
+       ctx.clearRect(390,20,10,10);
        ctx.fillStyle = "rgba(255,0,0,0)";
-       ctx.clearRect(580,20,10,10);
+       ctx.clearRect(520,20,10,10);
        ctx.fillStyle = "rgba(255,0,0,0)";
-       ctx.clearRect(680,20,10,10);
+       ctx.clearRect(640,100,10,10);
        ctx.fillStyle = "rgba(255,0,0,0)";
-       ctx.clearRect(80,380,10,10);
+       ctx.clearRect(30,300,10,10);
        ctx.fillStyle = "rgba(255,0,0,0)";
-       ctx.clearRect(180,380,10,10);
+       ctx.clearRect(130,380,10,10);
        ctx.fillStyle = "rgba(255,0,0,0)";
-       ctx.clearRect(320,380,10,10);
+       ctx.clearRect(250,380,10,10);
        ctx.fillStyle = "rgba(255,0,0,0)";
-       ctx.clearRect(480,380,10,10);
+       ctx.clearRect(390,380,10,10);
        ctx.fillStyle = "rgba(255,0,0,0)";
-       ctx.clearRect(580,380,10,10);
+       ctx.clearRect(520,380,10,10);
        ctx.fillStyle = "rgba(255,0,0,0)";
-       ctx.clearRect(680,380,10,10);
+       ctx.clearRect(640,300,10,10);
 
-       if (n == 12){
-         ctx.fillStyle = "rgba(255,0,0,1)";
-         ctx.fillRect(80,20,10,10);
-         return;
-       }
        if (n == 11){
          ctx.fillStyle = "rgba(255,0,0,1)";
-         ctx.fillRect(180,20,10,10);
+         ctx.fillRect(30,100,10,10);
          return;
        }
        if (n == 10){
          ctx.fillStyle = "rgba(255,0,0,1)";
-         ctx.fillRect(280,20,10,10);
+         ctx.fillRect(130,20,10,10);
          return;
        }
        if (n == 9){
          ctx.fillStyle = "rgba(255,0,0,1)";
-         ctx.fillRect(480,20,10,10);
+         ctx.fillRect(250,20,10,10);
          return;
        }
        if (n == 8){
          ctx.fillStyle = "rgba(255,0,0,1)";
-         ctx.fillRect(580,20,10,10);
+         ctx.fillRect(390,20,10,10);
          return;
        }
        if (n == 7){
          ctx.fillStyle = "rgba(255,0,0,1)";
-         ctx.fillRect(680,20,10,10);
-         return;
-       }
-       if (n == 1){
-         ctx.fillStyle = "rgba(255,0,0,1)";
-         ctx.fillRect(80,380,10,10);
-         return;
-       }
-       if (n == 2){
-         ctx.fillStyle = "rgba(255,0,0,1)";
-         ctx.fillRect(180,380,10,10);
-         return;
-       }
-       if (n == 3){
-         ctx.fillStyle = "rgba(255,0,0,1)";
-         ctx.fillRect(320,380,10,10);
-         return;
-       }
-       if (n == 4){
-         ctx.fillStyle = "rgba(255,0,0,1)";
-         ctx.fillRect(480,380,10,10);
-         return;
-       }
-       if (n == 5){
-         ctx.fillStyle = "rgba(255,0,0,1)";
-         ctx.fillRect(580,380,10,10);
+         ctx.fillRect(520,20,10,10);
          return;
        }
        if (n == 6){
          ctx.fillStyle = "rgba(255,0,0,1)";
-         ctx.fillRect(680,380,10,10);
+         ctx.fillRect(640,100,10,10);
+         return;
+       }
+       if (n == 0){
+         ctx.fillStyle = "rgba(255,0,0,1)";
+         ctx.fillRect(30,300,10,10);
+         return;
+       }
+       if (n == 1){
+         ctx.fillStyle = "rgba(255,0,0,1)";
+         ctx.fillRect(130,380,10,10);
+         return;
+       }
+       if (n == 2){
+         ctx.fillStyle = "rgba(255,0,0,1)";
+         ctx.fillRect(250,380,10,10);
+         return;
+       }
+       if (n == 3){
+         ctx.fillStyle = "rgba(255,0,0,1)";
+         ctx.fillRect(390,380,10,10);
+         return;
+       }
+       if (n == 4){
+         ctx.fillStyle = "rgba(255,0,0,1)";
+         ctx.fillRect(520,380,10,10);
+         return;
+       }
+       if (n == 5){
+         ctx.fillStyle = "rgba(255,0,0,1)";
+         ctx.fillRect(640,300,10,10);
          return;
        }
   }
+
 
 
 
